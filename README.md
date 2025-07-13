@@ -1,16 +1,12 @@
-# n8n Course Projects
-
-## Overview
-This repository contains JSON exports of n8n workflows for the “AI Agent” course.
+# n8n Course Workflows
+# Link of the Course on Youtube:
+`https://www.youtube.com/playlist?list=PLZ42ZUInDWC79Bw1K_tYQhUPfFRV7fy8v`
 
 ## How to import
+1. Clone this repo:  
+   `git clone https://github.com/YourUsername/n8n-course-workflows.git`
+2. In n8n, go to **Workflows** → **Import** → **From File**.  
+3. Select the JSON(s) in `workflows/`.
 
-1. Clone this repository at any folder in your PC:
-
-`git clone https://github.com/MohElshamy1994/n8n-course-Projetcs.git`
-
-2. In your n8n instance, go to **Workflows → Import → From File**, and select any JSON file in this folder.
-
-## Included workflows
-
-- `01-Smart_Chatbot`
+## Workflow list
+01- Smart Chatbot for Companies
