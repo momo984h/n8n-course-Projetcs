@@ -1,0 +1,292 @@
+{
+  "name": "41-BOwner_Test",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -544,
+        -96
+      ],
+      "id": "9a3ce28d-ec0d-4866-b135-0d717125944c",
+      "name": "Telegram Trigger",
+      "webhookId": "7046f2ad-cc84-410f-86a0-d96c17c02175",
+      "credentials": {
+        "telegramApi": {
+          "id": "6rU8SvvSt3eG6EVI",
+          "name": "Telegram account 6"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-5-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -544,
+        112
+      ],
+      "id": "0c3749d8-bbb6-421a-8db7-614291f71701",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "msBoN0TevvUi90Ev",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message.text }}",
+        "options": {
+          "systemMessage": "=# Meeting Scheduler Bot (no employee availability check)\n\nCoordinate 1-to-1 meetings between the Business Owner and a single employee: collect any missing details, **(optionally) check the owner’s calendar for conflicts**, confirm with the owner on Telegram, then **create the event** and notify the employee by email.\n\n## Context\n- User: Business Owner (Telegram).  Employees sheet: **Role | Name | Number | Email**.\n- Tone: friendly; Language: English.  Default duration: **1 hour**.\n- Timezone: use owner’s; else **America/Denver** (PC).\n- Organizer: the Google Calendar node’s account (owner email not added to attendees).\n\n## Responsibilities\n1) Parse request → if fields missing, ask **one compact question**.  \n2) Get employee email from Google Sheets by **Name**.  \n3) (If available) conflict-check owner calendar for `{start,end,timezone}`.  \n4) Show final summary → wait **Confirm / Edit / Cancel**.  \n5) After **Confirm**, create the calendar event and email the employee; send Telegram confirmation to the owner.  \n6) Reset memory when done/cancelled.\n\n## Required Fields\nEmployee name; Date & time (with timezone); Duration (default 1h); Location (`office` or `video`); Title/agenda; Extra participants (optional emails).  \nIf `video`, obtain the **meeting link from Google Calendar** (conference data) and include it.\n\n## Tools\n- **Employees Info (Sheets—read):** lookup by Name → `{name,email,role,number}`.  \n- **Owner Calendar (Calendar—getMany events):** inputs `{start,end,timezone}`; conflict if `(event.start < end) AND (event.end > start)` and not cancelled.  \n- **Create Event (Calendar—create):** inputs `title,start,end,timezone,location/link,description,attendees:[employeeEmail,...extras]`; enable conference data; returns `eventLink` and `meetingLink`.  \n- **Employee_Not (Gmail—send):** send final meeting details to employee.  \n- **Telegram (send message):** prompts/summaries/confirmation.  \n- **Simple Memory:** session state with the memory key above.\n\n## Telegram Output (Markdown)\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        -320,
+        -96
+      ],
+      "id": "eae04998-2618-4502-810f-13b29afdd9d3",
+      "name": "GPT-5"
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "mramdanelshamy@gmail.com",
+          "mode": "list",
+          "cachedResultName": "mramdanelshamy@gmail.com"
+        },
+        "start": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Start', ``, 'string') }}",
+        "end": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('End', ``, 'string') }}",
+        "additionalFields": {
+          "attendees": [
+            "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('attendees0_Attendees', ``, 'string') }}"
+          ],
+          "description": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Description', ``, 'string') }}",
+          "summary": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Summary', ``, 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        144,
+        112
+      ],
+      "id": "6a0af123-c5f3-44d8-b5c8-b5de1f619316",
+      "name": "Create an event in Google Calendar",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "qAqIK0xIRNUYKuvV",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        128,
+        -112
+      ],
+      "id": "75db8409-c546-408a-9b1c-3daded74962d",
+      "name": "Send a text message",
+      "webhookId": "11c7d4e7-843b-4285-9900-e8b9a53883ec",
+      "credentials": {
+        "telegramApi": {
+          "id": "6rU8SvvSt3eG6EVI",
+          "name": "Telegram account 6"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Hj4lk11wLPATXC33WFrIhGWwCWRGqzQUyFcus3k_SHI",
+          "mode": "list",
+          "cachedResultName": "Database",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Hj4lk11wLPATXC33WFrIhGWwCWRGqzQUyFcus3k_SHI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Hj4lk11wLPATXC33WFrIhGWwCWRGqzQUyFcus3k_SHI/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.6,
+      "position": [
+        -192,
+        144
+      ],
+      "id": "12286178-bd0e-4e54-8818-ef2dd89b2f82",
+      "name": "Employees Info",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "PBMnloryli0IusBu",
+          "name": "Google Sheets account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('To', ``, 'string') }}",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}",
+        "emailType": "text",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        -32,
+        144
+      ],
+      "id": "b0a3e8ef-37c5-41cc-ae78-171d8ac2d430",
+      "name": "Employee_Not",
+      "webhookId": "a77f35b1-8fc5-47a1-aa64-ff0905655eb7",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "GY58LqSqpcdm6K9j",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "contextWindowLength": 500
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -368,
+        128
+      ],
+      "id": "eee299f4-0e6e-474d-b0ed-10426a99c0f5",
+      "name": "Simple Memory"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "GPT-5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "GPT-5",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create an event in Google Calendar": {
+      "ai_tool": [
+        [
+          {
+            "node": "GPT-5",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GPT-5": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Employees Info": {
+      "ai_tool": [
+        [
+          {
+            "node": "GPT-5",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Employee_Not": {
+      "ai_tool": [
+        [
+          {
+            "node": "GPT-5",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "GPT-5",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "45531081-e8e2-4e9f-80b6-aab6ff25ab5b",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "8b02c297b9cb7dfc5562599c598a4b6e8d0f04ac4fd179c499ae6b438a1da9de"
+  },
+  "id": "QFq0moOz2HXL9uiv",
+  "tags": []
+}
