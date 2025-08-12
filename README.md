@@ -17,7 +17,7 @@ Below is a list of AI Agent projects included in this repository. Each row links
 
 | Project                           | Source File                                                                               | YouTube Link | PDF |
 |-----------------------------------|-------------------------------------------------------------------------------------------|-------------|-----|
-| Smart Chatbot for Companies       | [25_Smart_Chatbot_For_Companies.json](workflows/25_Smart_Chatbot_For_Companies.json)       |             |     |
+| Smart Chatbot for Companies       | [25_Smart_Chatbot_For_Companies.json](workflows/25_Smart_Chatbot_For_Companies.json)       |  [Watch]([https://www.youtube.com/watch?=VIDEO_ID](https://www.youtube.com/watch?v=BFi05jLLjMU&list=PLZ42ZUInDWC79Bw1K_tYQhUPfFRV7fy8v&index=31) "Smart_Chatbot_For_Companies")|     |
 | Company Chatbot Grok4             | [26_Comp_Company_Chatbot_Grok4.json](workflows/26_Comp_Company_Chatbot_Grok4.json)         |             |     |
 | RAG Chatbot                       | [29-RAG_Chatbot.json](workflows/29-RAG_Chatbot.json)                                       |             |     |
 | RAG AI Agent                      | [30-RAG_AI_Agent.zip](workflows/30-RAG_AI_Agent.zip)                                       |             |     |
