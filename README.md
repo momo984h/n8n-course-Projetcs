@@ -7,12 +7,43 @@ Welcome to the most comprehensive n8n AI Agent course! Build powerful automation
 This hands-on course teaches you to create sophisticated AI agents and automation workflows using n8n. From basic chatbots to advanced RAG (Retrieval-Augmented Generation) systems, you'll master the art of building intelligent automation solutions.
 
 ### 🎓 **What You'll Learn**
-- **AI Agent Development**: Build intelligent chatbots and virtual assistants
-- **RAG Systems**: Create knowledge-based AI agents with document retrieval
-- **Workflow Automation**: Design complex multi-step automation processes
-- **API Integration**: Connect multiple services and platforms seamlessly
-- **Voice & Text Processing**: Handle both text and voice interactions
-- **Business Applications**: Real-world AI solutions for companies
+
+**🧠 AI Theory & Fundamentals**
+- Master the theory of LLMs and AI agents through clear visual examples
+- Summarize key AI‑agent research and distinguish between AI agents, workflows, automation, and AI automation
+- Explain detailed definitions of APIs, servers, hosting, function calling, and test‑time compute
+- Differentiate between self‑hosting, cloud hosting, and various other hosting types
+
+**🚀 n8n Deployment & Management**
+- Deploy and manage n8n via self‑hosting (Node.js, Docker), cloud platforms, and hosting providers like Hostinger
+- Expose webhook endpoints by tunneling a self‑hosted n8n Docker instance
+- Configure credentials in self‑hosted n8n instances
+- Debug n8n workflows and integrate with external applications
+
+**🤖 AI Agent Development**
+- Build robust n8n AI agents locally at no cost
+- Differentiate among user, system, and assistant message roles in LLM interactions
+- Master prompt engineering and context engineering techniques
+- Develop a tool to automatically generate system messages for AI agents
+- Develop voice‑enabled AI agents using n8n
+- Master the design and implementation of over 100 AI agents
+
+**📊 Advanced AI Systems**
+- Understand Retrieval‑Augmented Generation (RAG) in depth and develop powerful RAG‑driven AI agents
+- Optimize RAG chatbots using embeddings, chunking, and related techniques
+- Develop advanced AI agent solutions, including collaborative agent teams and MCP implementations
+- Build multiple sentiment analysis projects
+
+**🔗 Integration & Automation**
+- Build practical automation projects using Gmail and Google Workspace apps (e.g., Sheets)
+- Integrate WhatsApp, Telegram, calendar, web scraping, and other services with n8n
+- Integrate apps with websites and build an AI‑automation-driven business
+- Compare pricing plans of major AI platforms (OpenAI, Claude, Gemini, DeepSeek, xAI, etc.)
+
+**🛡️ Security & Optimization**
+- Implement strategies to address challenges, ensure security compliance, and protect data
+- Identify all memory types in n8n
+- Develop premium AI agents for business applications
 
 ### 📊 **Course Statistics**
 - **🎬 40+ Video Tutorials**: Step-by-step implementation guides
@@ -58,27 +89,27 @@ cd n8n-course-Projetcs
 
 ### 🟢 **Beginner Level Projects**
 
-| Project | Description | Duration | Source File | YouTube Video |
-|---------|-------------|----------|-------------|---------------|
-| **Smart Company Chatbot** | Build an intelligent customer service chatbot for businesses with FAQ handling and lead generation | 45 min | [📁 Download](workflows/25_Smart_Chatbot_For_Companies.json) | [🎥 Watch](https://www.youtube.com/watch?v=BFi05jLLjMU&list=PLZ42ZUInDWC79Bw1K_tYQhUPfFRV7fy8v&index=31) |
-| **Company Chatbot with Grok** | Enhanced chatbot using Grok AI for more natural conversations and better context understanding | 50 min | [📁 Download](workflows/26_Comp_Company_Chatbot_Grok4.json) | [🎥 Watch](https://www.youtube.com/watch?v=exsnquJcSmE&list=PLZ42ZUInDWC79Bw1K_tYQhUPfFRV7fy8v&index=32) |
+| Project | Description | Source File | YouTube Video |
+|---------|-------------|-------------|---------------|
+| **Smart Company Chatbot** | Build an intelligent customer service chatbot for businesses with FAQ handling and lead generation | [📁 Download](workflows/25_Smart_Chatbot_For_Companies.json) | [🎥 Watch](https://www.youtube.com/watch?v=BFi05jLLjMU&list=PLZ42ZUInDWC79Bw1K_tYQhUPfFRV7fy8v&index=31) |
+| **Company Chatbot with Grok** | Enhanced chatbot using Grok AI for more natural conversations and better context understanding | [📁 Download](workflows/26_Comp_Company_Chatbot_Grok4.json) | [🎥 Watch](https://www.youtube.com/watch?v=exsnquJcSmE&list=PLZ42ZUInDWC79Bw1K_tYQhUPfFRV7fy8v&index=32) |
 
 ### 🟡 **Intermediate Level Projects**
 
-| Project | Description | Duration | Source File | YouTube Video |
-|---------|-------------|----------|-------------|---------------|
-| **RAG Chatbot System** | Build a Retrieval-Augmented Generation chatbot that can answer questions based on your documents | 90 min | [📁 Download](workflows/29-RAG_Chatbot.json) | [🎥 Part 1](https://www.youtube.com/watch?v=ntGE0fN8WWM&list=PLZ42ZUInDWC79Bw1K_tYQhUPfFRV7fy8v&index=39) • [🎥 Part 2](https://www.youtube.com/watch?v=axOTx3e8660&list=PLZ42ZUInDWC79Bw1K_tYQhUPfFRV7fy8v&index=40) |
-| **RAG AI Agent** | Advanced AI agent with document processing, vector storage, and intelligent query handling | 75 min | [📁 Download](workflows/30-RAG_AI_Agent.zip) | [🎥 Watch](https://www.youtube.com/watch?v=K1G86IlyWyE&list=PLZ42ZUInDWC79Bw1K_tYQhUPfFRV7fy8v&index=41) |
-| **GPT Open Source Agent** | Create your own GPT-like agent using open-source models and custom training data | 60 min | [📁 Download](workflows/39-GPT-Oss.json) | [🎥 Watch](https://www.youtube.com/watch?v=evFucdQK7kQ&list=PLZ42ZUInDWC79Bw1K_tYQhUPfFRV7fy8v&index=52) |
+| Project | Description | Source File | YouTube Video |
+|---------|-------------|-------------|---------------|
+| **RAG Chatbot System** | Build a Retrieval-Augmented Generation chatbot that can answer questions based on your documents | [📁 Download](workflows/29-RAG_Chatbot.json) | [🎥 Part 1](https://www.youtube.com/watch?v=ntGE0fN8WWM&list=PLZ42ZUInDWC79Bw1K_tYQhUPfFRV7fy8v&index=39) • [🎥 Part 2](https://www.youtube.com/watch?v=axOTx3e8660&list=PLZ42ZUInDWC79Bw1K_tYQhUPfFRV7fy8v&index=40) |
+| **RAG AI Agent** | Advanced AI agent with document processing, vector storage, and intelligent query handling | [📁 Download](workflows/30-RAG_AI_Agent.zip) | [🎥 Watch](https://www.youtube.com/watch?v=K1G86IlyWyE&list=PLZ42ZUInDWC79Bw1K_tYQhUPfFRV7fy8v&index=41) |
+| **GPT Open Source Agent** | Create your own GPT-like agent using open-source models and custom training data | [📁 Download](workflows/39-GPT-Oss.json) | [🎥 Watch](https://www.youtube.com/watch?v=evFucdQK7kQ&list=PLZ42ZUInDWC79Bw1K_tYQhUPfFRV7fy8v&index=52) |
 
 ### 🔴 **Advanced Level Projects**
 
-| Project | Description | Duration | Source File | YouTube Video |
-|---------|-------------|----------|-------------|---------------|
-| **High-Accuracy RAG Agent** | Ultra-precise RAG system with advanced chunking, multiple vector stores, and context optimization | 120 min | [📁 Download](workflows/31-RAG_AI_Agent_Very_Accurate.zip) | [🎥 Part 1](https://www.youtube.com/watch?v=nMURjvGpVYo&list=PLZ42ZUInDWC79Bw1K_tYQhUPfFRV7fy8v&index=42) • [🎥 Part 2](https://www.youtube.com/watch?v=SWXhl0iQNX4&list=PLZ42ZUInDWC79Bw1K_tYQhUPfFRV7fy8v&index=43) |
-| **Fully Synchronized RAG Agent** | Enterprise-grade RAG system with real-time data sync, multi-source integration, and advanced caching | 100 min | [📁 Download](workflows/32-Course32-%20RAG%20AI%20Agent_FullySync.zip) | [🎥 Watch](https://www.youtube.com/watch?v=WtmpNiGbuw4&list=PLZ42ZUInDWC79Bw1K_tYQhUPfFRV7fy8v&index=44) |
-| **Business Owner GPT-5** | Comprehensive business AI assistant with financial analysis, market research, and strategic planning capabilities | 90 min | [📁 Download](workflows/41_BusinessOwnerGPT5/41-BOwner_GPT5.json) | [🎥 Watch](https://www.youtube.com/watch?v=LTAw0B5bKb4&list=PLZ42ZUInDWC79Bw1K_tYQhUPfFRV7fy8v&index=54) |
-| **Auto Meeting Scheduler** | Intelligent meeting scheduler with voice and text processing, calendar integration, and conflict resolution | 80 min | [📁 Download](workflows/42-%20Auto%20Meeting%20Shecduler_Text+Voice.zip) | 🎥 Coming Soon |
+| Project | Description | Source File | YouTube Video |
+|---------|-------------|-------------|---------------|
+| **High-Accuracy RAG Agent** | Ultra-precise RAG system with advanced chunking, multiple vector stores, and context optimization | [📁 Download](workflows/31-RAG_AI_Agent_Very_Accurate.zip) | [🎥 Part 1](https://www.youtube.com/watch?v=nMURjvGpVYo&list=PLZ42ZUInDWC79Bw1K_tYQhUPfFRV7fy8v&index=42) • [🎥 Part 2](https://www.youtube.com/watch?v=SWXhl0iQNX4&list=PLZ42ZUInDWC79Bw1K_tYQhUPfFRV7fy8v&index=43) |
+| **Fully Synchronized RAG Agent** | Enterprise-grade RAG system with real-time data sync, multi-source integration, and advanced caching | [📁 Download](workflows/32-Course32-%20RAG%20AI%20Agent_FullySync.zip) | [🎥 Watch](https://www.youtube.com/watch?v=WtmpNiGbuw4&list=PLZ42ZUInDWC79Bw1K_tYQhUPfFRV7fy8v&index=44) |
+| **Business Owner GPT-5** | Comprehensive business AI assistant with financial analysis, market research, and strategic planning capabilities | [📁 Download](workflows/41_BusinessOwnerGPT5/41-BOwner_GPT5.json) | [🎥 Watch](https://www.youtube.com/watch?v=LTAw0B5bKb4&list=PLZ42ZUInDWC79Bw1K_tYQhUPfFRV7fy8v&index=55&t=451s) |
+| **Auto Meeting Scheduler** | Intelligent meeting scheduler with voice and text processing, calendar integration, and conflict resolution | [📁 Download](workflows/42-%20Auto%20Meeting%20Shecduler_Text+Voice.zip) | [🎥 Watch](https://www.youtube.com/watch?v=x0EZioGrEMM&list=PLZ42ZUInDWC79Bw1K_tYQhUPfFRV7fy8v&index=55) |
 
 ## 🛠️ Technologies & Integrations
 
