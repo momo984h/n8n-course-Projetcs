@@ -57,29 +57,19 @@ This hands-on course teaches you to create sophisticated AI agents and automatio
 
 ## 📋 Prerequisites
 
-- **Basic understanding** of APIs and webhooks
 - **n8n installation** (we'll cover this in setup guide)
 - **Enthusiasm to learn** AI automation!
 - **No coding experience required** - n8n is visual!
 
 ## 🚀 Quick Start Guide
 
-### 1. **Install n8n**
-```bash
-# Using npm (recommended)
-npm install n8n -g
-
-# Using Docker
-docker run -it --rm --name n8n -p 5678:5678 n8nio/n8n
-```
-
-### 2. **Clone This Repository**
+### 1. **Clone This Repository**
 ```bash
 git clone https://github.com/MohElshamy1994/n8n-course-Projetcs.git
 cd n8n-course-Projetcs
 ```
 
-### 3. **Import Workflows**
+### 2. **Import Workflows**
 1. Open n8n at `http://localhost:5678`
 2. Go to **Workflows** → **Import** → **From File**
 3. Select any JSON file from the `workflows/` folder
