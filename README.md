@@ -186,7 +186,7 @@ cd n8n-course-Projetcs
 Specialized in building production-ready AI agents and automation systems. Creator of multiple successful courses on YouTube with thousands of students worldwide.
 
 - **🎥 YouTube Channel**: [AI Plus ME](https://www.youtube.com/@AIPlus_ME)
-- **💼 LinkedIn**: Connect for professional discussions
+- **💼 LinkedIn**: [Mohamed Elshamy](https://www.linkedin.com/in/moh-elshamy/)
 - **🐙 GitHub**: [MohElshamy1994](https://github.com/MohElshamy1994)
 
 ## 🤝 Contributing
