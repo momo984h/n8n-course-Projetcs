@@ -77,6 +77,8 @@ cd n8n-course-Projetcs
 
 ## 🤖 AI Agent Projects
 
+> **📝 Note**: This is not the whole course - projects are updated with time as new content is added!
+
 ### 🟢 **Beginner Level Projects**
 
 | Project | Description | Source File | YouTube Video |
