@@ -47,7 +47,7 @@ This hands-on course teaches you to create sophisticated AI agents and automatio
 
 ### 📊 **Course Statistics**
 - **🎬 40+ Video Tutorials**: Step-by-step implementation guides
-- **🤖 9 Complete Projects**: From beginner to advanced AI agents
+- **🤖 10 Complete Projects**: From beginner to advanced AI agents
 - **⏱️ 20+ Hours**: Comprehensive hands-on learning
 - **🏆 Production-Ready**: Deploy real business solutions
 
@@ -102,6 +102,7 @@ cd n8n-course-Projetcs
 | **Fully Synchronized RAG Agent** | Enterprise-grade RAG system with real-time data sync, multi-source integration, and advanced caching | [📁 Download](workflows/32-Course32-%20RAG%20AI%20Agent_FullySync.zip) | [🎥 Watch](https://www.youtube.com/watch?v=WtmpNiGbuw4&list=PLZ42ZUInDWC79Bw1K_tYQhUPfFRV7fy8v&index=44) |
 | **Business Owner GPT-5** | Comprehensive business AI assistant with financial analysis, market research, and strategic planning capabilities | [📁 Download](workflows/41_BusinessOwnerGPT5/41-BOwner_GPT5.json) | [🎥 Watch](https://www.youtube.com/watch?v=LTAw0B5bKb4&list=PLZ42ZUInDWC79Bw1K_tYQhUPfFRV7fy8v&index=55&t=451s) |
 | **Auto Meeting Scheduler** | Intelligent meeting scheduler with voice and text processing, calendar integration, and conflict resolution | [📁 Download](workflows/42-%20Auto%20Meeting%20Shecduler_Text+Voice.zip) | [🎥 Watch](https://www.youtube.com/watch?v=x0EZioGrEMM&list=PLZ42ZUInDWC79Bw1K_tYQhUPfFRV7fy8v&index=55) |
+| **Multi-Modal WhatsApp Agent** | Advanced WhatsApp AI agent supporting voice messages, text, images, and document processing with calendar integration | [📁 Download](workflows/46-Voice+Text+Image_WhatsAppAgent.json) | 🎥 Coming Soon |
 
 ## 🛠️ Technologies & Integrations
 
