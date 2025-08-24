@@ -77,6 +77,18 @@ cd n8n-course-Projetcs
 
 ## 🔄 Docker Management
 
+### **Initial Docker Setup**
+
+**🚀 New to n8n Docker Setup?** If you haven't set up n8n in a Docker container yet, **watch this video first** and follow the steps one by one:
+
+> **📺 Complete Setup Guide**: [🎥 n8n Docker Installation Tutorial](https://www.youtube.com/watch?v=VXCC8jHN7zA&list=PLZ42ZUInDWC79Bw1K_tYQhUPfFRV7fy8v&index=50)
+> 
+> **📄 Reference Material**: [📁 Lecture 37 PDF Guide](workflows/37-n8n_Docker_Installation/Lec37.pdf)
+
+This comprehensive tutorial will guide you through the complete Docker installation process before you proceed with updates.
+
+---
+
 ### **Updating n8n Docker Container**
 
 To keep your n8n instance up-to-date with the latest features and security patches, follow this step-by-step process:
