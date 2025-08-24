@@ -75,6 +75,26 @@ cd n8n-course-Projetcs
 3. Select any JSON file from the `workflows/` folder
 4. Follow along with the corresponding YouTube video
 
+## 🔄 Docker Management
+
+### **Updating n8n Docker Container**
+
+To keep your n8n instance up-to-date with the latest features and security patches, follow this step-by-step process:
+
+| Step | Command | Description |
+|------|---------|-------------|
+| **1. Stop Container** | `docker stop n8n` | Safely stop the running n8n container |
+| **2. Remove Container** | `docker rm n8n` | Remove the old container (data persists in volume) |
+| **3. Pull Latest Image** | `docker pull docker.n8n.io/n8nio/n8n` | Download the latest n8n Docker image |
+| **4. Start New Container** | `docker run -d --name n8n -p 5677:5678 ^`<br/>`  -e WEBHOOK_URL=https://n8ncourse.n8ncourse.cfd ^`<br/>`  -e N8N_DEFAULT_BINARY_DATA_MODE=filesystem ^`<br/>`  -v C:\Docker\n8n-data:/home/node/.n8n ^`<br/>`  docker.n8n.io/n8nio/n8n` | Launch updated n8n with preserved data and settings |
+
+> **📺 Video Tutorial**: [🎥 How to Update n8n Docker Container](https://www.youtube.com/watch?v=VIDEO_ID_PLACEHOLDER) *(Coming Soon)*
+
+> **⚠️ Important Notes:**
+> - Your workflows and data are preserved thanks to the volume mount (`-v C:\Docker\n8n-data:/home/node/.n8n`)
+> - Always backup your data before updating: `docker cp n8n:/home/node/.n8n C:\Backup\n8n-backup-$(date +%Y%m%d)`
+> - The container will be accessible at `http://localhost:5677` after the update
+
 ## 🤖 AI Agent Projects
 
 > **📝 Note**: This is not the whole course - projects are updated with time as new content is added!
