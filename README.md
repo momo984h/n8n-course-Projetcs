@@ -55,6 +55,9 @@ This hands-on course teaches you to create sophisticated AI agents and automatio
 
 **[📺 Watch Full Course on YouTube](https://www.youtube.com/playlist?list=PLZ42ZUInDWC79Bw1K_tYQhUPfFRV7fy8v)**
 
+**🎓 If you want to access the course on Udemy for FREE** - [🆓 Get Free Access](https://www.udemy.com/course/mastering-ai-agentic-engineering-with-n8n/?couponCode=CD911814FEB35662C2D9)  
+*(Valid for only 1000 people until 09/06/2025)*
+
 ## 📋 Prerequisites
 
 - **n8n installation** (we'll cover this in setup guide)
