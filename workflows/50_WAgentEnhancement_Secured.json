@@ -1,0 +1,1846 @@
+{
+  "name": "48_WAgentEnhancement",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "messages"
+        ],
+        "options": {}
+      },
+      "type": "n8n-nodes-base.whatsAppTrigger",
+      "typeVersion": 1,
+      "position": [
+        -3120,
+        -1200
+      ],
+      "id": "e625c027-9e51-4c89-ac12-78545b0e48e8",
+      "name": "WhatsApp Trigger",
+      "webhookId": "e7039a84-cb8d-4dc6-98d0-920323452185",
+      "credentials": {
+        "whatsAppTriggerApi": {
+          "id": "Qxvktjs4LoouNukl",
+          "name": "WhatsApp OAuth account 10"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "803302272858386",
+        "recipientPhoneNumber": "+15756398399",
+        "messageType": "audio",
+        "mediaPath": "useMedian8n",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1,
+      "position": [
+        -384,
+        -1232
+      ],
+      "id": "2c6a5379-1d92-4feb-8057-73891f2b1533",
+      "name": "Send message",
+      "webhookId": "7961c227-06d1-43c6-97ee-b10ce1030589",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "aTnIglElY9lIBfh8",
+          "name": "WhatsApp account 8"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.messages[0].text }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "object",
+                      "operation": "exists",
+                      "singleValue": true
+                    },
+                    "id": "35588a02-6475-400d-b869-da05d7ed0f3a"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Text"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "83b9e800-99d0-4e31-8032-ae81aebe86d1",
+                    "leftValue": "={{ $json.messages[0].audio }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "object",
+                      "operation": "exists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Audio"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "3ab7184b-65ec-4ca5-a250-667667999220",
+                    "leftValue": "={{ $json.messages[0].image }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "object",
+                      "operation": "exists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Image"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -2656,
+        -1216
+      ],
+      "id": "befd28dc-28e4-4435-8412-f8d26252c3d6",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "resource": "media",
+        "operation": "mediaUrlGet",
+        "mediaGetId": "={{ $json.messages[0].audio.id }}"
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1,
+      "position": [
+        -2336,
+        -1200
+      ],
+      "id": "242024b6-0d9f-4a47-96df-1cb7a91cd28f",
+      "name": "Download URL",
+      "webhookId": "d97e31e5-26f3-4b5f-b7b1-b3905930ad09",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "yjHMGDTQNYnqDDyV",
+          "name": "WhatsApp account 9"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "operation": "transcribe",
+        "options": {
+          "language": "en"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -2000,
+        -1200
+      ],
+      "id": "64000949-4fad-400b-8e0b-cd7572c9b478",
+      "name": "Transcribe a recording",
+      "credentials": {
+        "openAiApi": {
+          "id": "msBoN0TevvUi90Ev",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2f35809b-3889-4ef7-a8d5-a4d934842631",
+              "name": "Text",
+              "value": "={{ $json.messages[0].text.body }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2112,
+        -1376
+      ],
+      "id": "74df3dc6-25a0-46c7-acc3-1f9db65a54f9",
+      "name": "Text"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2f35809b-3889-4ef7-a8d5-a4d934842631",
+              "name": "Text",
+              "value": "={{ $json.text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1824,
+        -1200
+      ],
+      "id": "66a1ada0-097e-4067-a3a2-bd5ad5d68bd1",
+      "name": "Voice"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2176,
+        -1200
+      ],
+      "id": "5fe61860-2215-4566-b675-6897ba43f969",
+      "name": "Download Audio",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "JvA0bJ3dZC7HamGE",
+          "name": "Header Auth account 7"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "bbb5a4b6-7c2c-4af6-a584-e6352fd0068f",
+              "leftValue": "={{ $('WhatsApp Trigger').item.json.messages[0].audio }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1072,
+        -1328
+      ],
+      "id": "8f47b4c4-ee0f-43a1-b520-a414c1ea2508",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "input": "={{ $json.output }}",
+        "voice": "shimmer",
+        "options": {
+          "response_format": "opus"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -608,
+        -1232
+      ],
+      "id": "1b0ab01a-deee-4051-b3e2-3286c55eb335",
+      "name": "Generate audio",
+      "credentials": {
+        "openAiApi": {
+          "id": "msBoN0TevvUi90Ev",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "803302272858386",
+        "recipientPhoneNumber": "+15756398399",
+        "textBody": "={{ $json.output }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1,
+      "position": [
+        -480,
+        -1040
+      ],
+      "id": "56eaa3a0-97b8-4ba9-b050-2efa7e52c187",
+      "name": "Send message1",
+      "webhookId": "3f2c16e2-b427-4cb4-86d8-0f4dc43092bb",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "aTnIglElY9lIBfh8",
+          "name": "WhatsApp account 8"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "text": "=What's in this image?",
+        "inputType": "base64",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -2000,
+        -976
+      ],
+      "id": "5933146a-6126-4829-bec4-d584666f6b97",
+      "name": "Analyze image",
+      "credentials": {
+        "openAiApi": {
+          "id": "msBoN0TevvUi90Ev",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "media",
+        "operation": "mediaUrlGet",
+        "mediaGetId": "={{ $json.messages[0].image.id }}"
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1,
+      "position": [
+        -2336,
+        -976
+      ],
+      "id": "a9ee6b31-69db-4faf-aca5-b4e71e8374d5",
+      "name": "Download Image URL",
+      "webhookId": "35fcb218-c78d-4e18-8e94-292cdf3e3e1f",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "yjHMGDTQNYnqDDyV",
+          "name": "WhatsApp account 9"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2176,
+        -976
+      ],
+      "id": "3daca760-b58c-4fc0-bf61-e85204b11bbe",
+      "name": "Download Image",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "JvA0bJ3dZC7HamGE",
+          "name": "Header Auth account 7"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2f35809b-3889-4ef7-a8d5-a4d934842631",
+              "name": "Text",
+              "value": "=# The author provided the image and the text \n\n## Image Description\n{{ $json.content }}\n\n## User Message\n{{ $('WhatsApp Trigger').item.json.messages[0].image.caption || \"Describe this image\" }}\n\n",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1824,
+        -976
+      ],
+      "id": "f9628e59-af92-49ef-a251-e21831847939",
+      "name": "Image + Text"
+    },
+    {
+      "parameters": {
+        "content": "# Text\n",
+        "height": 176,
+        "width": 768,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2448,
+        -1408
+      ],
+      "typeVersion": 1,
+      "id": "01458d40-132f-4668-8b0b-27ab2a2d7ebc",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "# Voice\n",
+        "height": 176,
+        "width": 768,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2448,
+        -1216
+      ],
+      "typeVersion": 1,
+      "id": "3f3f23de-814e-4ca0-8e28-ffa60b572fb2",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "# Image\n",
+        "height": 208,
+        "width": 768,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2448,
+        -1024
+      ],
+      "typeVersion": 1,
+      "id": "8358c703-4690-4c35-8822-c14ca83d1e1d",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "# Inputs\n",
+        "height": 720,
+        "width": 1536
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -3184,
+        -1424
+      ],
+      "typeVersion": 1,
+      "id": "2fd1b2c1-6e80-4a43-adf3-f66107e90e1a",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.Text }}",
+        "options": {
+          "systemMessage": "=## Overview\nYou are the Parent Orchestrator Agent. Your job is to route and coordinate incoming WhatsApp messages (text, voice, image) to the correct sub-agent or processing tool. The current date and time is {{ $now.toString() }}\n\n## Tools\n- Think: Use to evaluate context and decide routing logic\n- E-Mails Agent: Use for handling email-related queries, sending, replying, or managing inbox\n- Calendar Agent: Use for scheduling, retrieving, updating, or deleting calendar events\n- Web Search Agent: Use to fetch information from the internet (Google Search, Wikipedia, Hacker News)\n- Social Media Agent: Use to create or manage posts on Twitter/X\n\n## Rules\n- Route text, voice, or image inputs based on intent and context\n- Use Think tool when unsure which agent to delegate to\n- Always return the response in the correct WhatsApp output format (text or audio)\n- Keep responses concise and aligned with the casual tone of WhatsApp\n- Confirm completion of actions (emails sent, events scheduled, tweets posted, etc.)\n\n## Instructions\n1) Receive processed input (transcribed text, analyzed image, or raw message)\n2) Decide best-fit agent using Think\n3) Send the task to chosen sub-agent (E-Mails, Calendar, Web Search, Social Media)\n4) Summarize the result and return to WhatsApp as text or audio\n\n## Examples\n1)\nInput: \"What’s on my calendar tomorrow?\"\n- Action: Use Calendar Agent to check tomorrow’s events\n- Output: \"You have 2 events tomorrow: 10 AM – Project Review, 2 PM – Client Call.\"\n\n2)\nInput: Voice message: \"Send an email to Sarah about the meeting.\"\n- Action: Use E-Mails Agent to draft and send email\n- Output: \"Email sent to Sarah: Subject – Meeting Update...\"\n\n3)\nInput: \"Search the latest AI news.\"\n- Action: Use Web Search Agent\n- Output: \"Latest AI news from Hacker News: OpenAI released a new API feature...\"\n\n4)\nInput: \"Post on Twitter: Excited about our new product launch!\"\n- Action: Use Social Media Agent\n- Output: \"Tweet posted: 'Excited about our new product launch!'\"\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        -1376,
+        -1328
+      ],
+      "id": "7e51602d-752f-411e-9fe9-d95b0ca9b974",
+      "name": "Orchestrator Agent",
+      "retryOnFail": false
+    },
+    {
+      "parameters": {
+        "content": "# Voice\n\n",
+        "height": 176,
+        "width": 576,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -736,
+        -1264
+      ],
+      "typeVersion": 1,
+      "id": "88f18580-9170-4049-b8d0-a934249e6ce4",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "# Text\n\n",
+        "height": 176,
+        "width": 576,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -736,
+        -1072
+      ],
+      "typeVersion": 1,
+      "id": "7bb5d994-e251-4b8d-a3c2-cb35f3d81818",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "# Output\n",
+        "height": 704,
+        "width": 896
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -880,
+        -1424
+      ],
+      "typeVersion": 1,
+      "id": "84526f1a-57c5-4f14-8f1d-17b452bd15a3",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Call this tool if you want to do something with calendar.",
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Prompt__User_Message_', ``, 'string') }}",
+        "options": {
+          "systemMessage": "=## Overview\nYou are the Calendar Agent. Your job is to manage calendar events by creating, updating, retrieving, or deleting them as requested. The current date and time is {{ $now.toString() }}\n\n## Tools\n- Create an event: Use to add a new calendar event\n- Delete an event: Use to remove an existing event\n- Get an event: Use to fetch details of a specific event\n- Get Many Events: Use to list multiple upcoming or past events\n- Update Events: Use to modify details of an existing event\n\n## Rules\n- Always confirm the date, time, and event details before creating or updating\n- Use Get Many Events before creating to avoid duplicates if unsure\n- Keep responses short and clear for WhatsApp delivery\n- If an event cannot be found, respond politely with a fallback message\n\n## Instructions\n1) Interpret the user’s calendar request\n2) Select the correct tool (create, get, update, delete)\n3) Execute the action and return a human-friendly summary\n4) Always confirm the action back to the user\n\n## Examples\n1)\nInput: \"Add a meeting with Sarah tomorrow at 3 PM\"\n- Action: Use Create an event\n- Output: \"Meeting with Sarah scheduled for tomorrow at 3 PM.\"\n\n2)\nInput: \"What’s on my calendar this week?\"\n- Action: Use Get Many Events\n- Output: \"You have 4 events this week. First: Team Sync, Monday 10 AM.\"\n\n3)\nInput: \"Cancel my dentist appointment on Friday\"\n- Action: Use Delete an event\n- Output: \"Dentist appointment on Friday has been deleted.\"\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "typeVersion": 2.2,
+      "position": [
+        -688,
+        -608
+      ],
+      "id": "c8531007-9873-421a-beb6-23044c00c26c",
+      "name": "Calendar Agent"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Call this tool if you want to do something with E-mails.",
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Prompt__User_Message_', ``, 'string') }}",
+        "options": {
+          "systemMessage": "You are a helpful assistant"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "typeVersion": 2.2,
+      "position": [
+        -1744,
+        -576
+      ],
+      "id": "7218d3ba-0391-43b8-ac06-26897c8bf7da",
+      "name": "E-Mails Agent1"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1.1,
+      "position": [
+        -1120,
+        -1168
+      ],
+      "id": "cfeca569-4b9a-4ae1-9152-1a74ade240e5",
+      "name": "Think"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Call this tool to search the web.",
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Prompt__User_Message_', ``, 'string') }}",
+        "options": {
+          "systemMessage": "## Overview\nYou are the Web Search Agent. Your job is to search the web and retrieve reliable information from news, Wikipedia, or Google Search when requested. The current date and time is {{ $now.toString() }}\n\n## Tools\n- Get an article in Hacker News: Use to fetch recent Hacker News articles\n- Wikipedia: Use to retrieve encyclopedic and factual information\n- Google Search (SerpApi): Use for general web searches across the internet\n\n## Rules\n- Always choose the most relevant tool for the query\n- Return concise, clear, and factual responses\n- Summarize results instead of dumping raw data\n- Cite the source of information (e.g., \"According to Wikipedia...\")\n\n## Instructions\n1) Interpret the user’s query\n2) Select the best tool (Hacker News, Wikipedia, Google Search)\n3) Retrieve and summarize the answer\n4) Return only the relevant response in plain text\n\n## Examples\n1)\nInput: \"What’s the latest AI news?\"\n- Action: Use Hacker News tool to get recent articles\n- Output: \"Latest on Hacker News: OpenAI released a new API feature...\"\n\n2)\nInput: \"Who invented the telephone?\"\n- Action: Use Wikipedia tool\n- Output: \"According to Wikipedia, Alexander Graham Bell is credited with inventing the telephone in 1876.\"\n\n3)\nInput: \"Best restaurants in New York 2025\"\n- Action: Use Google Search (SerpApi)\n- Output: \"Top-rated restaurants in New York (2025): Le Bernardin, Eleven Madison Park, Atomix.\"\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "typeVersion": 2.2,
+      "position": [
+        -2704,
+        -560
+      ],
+      "id": "c9473207-5eb9-4632-baf8-6d8209bbd1b4",
+      "name": "Search Agent",
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "content": "# Orchestrator Agent\n\n",
+        "height": 368,
+        "width": 736,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1632,
+        -1424
+      ],
+      "typeVersion": 1,
+      "id": "eeb76df9-59c1-4fd3-b5f4-2a50e5eb2ca0",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolSerpApi",
+      "typeVersion": 1,
+      "position": [
+        -2368,
+        -336
+      ],
+      "id": "628ebc5c-5495-48a5-918d-76e3573f20cf",
+      "name": "Google Search",
+      "credentials": {
+        "serpApi": {
+          "id": "JVFwuuhT4VXzyoiW",
+          "name": "SerpAPI account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolWikipedia",
+      "typeVersion": 1,
+      "position": [
+        -2512,
+        -336
+      ],
+      "id": "226c7684-506a-4708-85aa-375a7372514e",
+      "name": "Wikipedia"
+    },
+    {
+      "parameters": {
+        "articleId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Article_ID', ``, 'string') }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.hackerNewsTool",
+      "typeVersion": 1,
+      "position": [
+        -2656,
+        -336
+      ],
+      "id": "61948ac7-2769-49be-924c-9373b7dbdfd3",
+      "name": "Get an article in Hacker News"
+    },
+    {
+      "parameters": {
+        "content": "# Web Search Agent\n\n",
+        "height": 496,
+        "width": 1040,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -3184,
+        -672
+      ],
+      "typeVersion": 1,
+      "id": "78a06ae6-5705-4e7d-864c-002788286ffc",
+      "name": "Sticky Note8"
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "alyfar601@gmail.com",
+          "mode": "list",
+          "cachedResultName": "alyfar601@gmail.com"
+        },
+        "start": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Start', ``, 'string') }}",
+        "end": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('End', ``, 'string') }}",
+        "useDefaultReminders": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Use_Default_Reminders', ``, 'boolean') }}",
+        "additionalFields": {
+          "attendees": [],
+          "description": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Description', ``, 'string') }}",
+          "summary": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Summary', ``, 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -720,
+        -368
+      ],
+      "id": "a46a46eb-7269-4c58-91be-0f89a3d1e2cc",
+      "name": "Create an event",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "yVtKFvzRcKY9uZrz",
+          "name": "Google Calendar account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "calendar": {
+          "__rl": true,
+          "value": "alyfar601@gmail.com",
+          "mode": "list",
+          "cachedResultName": "alyfar601@gmail.com"
+        },
+        "eventId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Event_ID', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -560,
+        -368
+      ],
+      "id": "bff9a7de-de06-419c-98f4-86663569763e",
+      "name": "Delete an event",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "9hoKdBkTP6YluFT5",
+          "name": "Google Calendar account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "calendar": {
+          "__rl": true,
+          "value": "alyfar601@gmail.com",
+          "mode": "list",
+          "cachedResultName": "alyfar601@gmail.com"
+        },
+        "eventId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Event_ID', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -432,
+        -368
+      ],
+      "id": "6c31c75a-2f49-46df-9059-c0ca64f181dc",
+      "name": "Get an event",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "yVtKFvzRcKY9uZrz",
+          "name": "Google Calendar account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "alyfar601@gmail.com",
+          "mode": "list",
+          "cachedResultName": "alyfar601@gmail.com"
+        },
+        "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}",
+        "timeMin": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('After', ``, 'string') }}",
+        "timeMax": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Before', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -288,
+        -368
+      ],
+      "id": "b1efde0f-8bda-4413-9b3d-ea47eb37c0d7",
+      "name": "Get Many Events",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "yVtKFvzRcKY9uZrz",
+          "name": "Google Calendar account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "calendar": {
+          "__rl": true,
+          "value": "alyfar601@gmail.com",
+          "mode": "list",
+          "cachedResultName": "alyfar601@gmail.com"
+        },
+        "eventId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Event_ID', ``, 'string') }}",
+        "updateFields": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -144,
+        -368
+      ],
+      "id": "de91acc8-e8c5-4d91-8fbb-a72a9fef0fde",
+      "name": "Update Events",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "yVtKFvzRcKY9uZrz",
+          "name": "Google Calendar account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('To', ``, 'string') }}",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}",
+        "emailType": "text",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        -1952,
+        -336
+      ],
+      "id": "3b32f14c-6f01-4f69-be8b-518a9a05b55b",
+      "name": "Send a message",
+      "webhookId": "bb7a5919-6824-4026-8720-4dc83b7f247e",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "MfuUMkpTyKDo5WSC",
+          "name": "Gmail account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}",
+        "simple": false,
+        "filters": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        -1664,
+        -336
+      ],
+      "id": "65d624f2-67de-439b-97ba-b4782e300c87",
+      "name": "Get many e-mails",
+      "webhookId": "bb7a5919-6824-4026-8720-4dc83b7f247e",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "MfuUMkpTyKDo5WSC",
+          "name": "Gmail account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "messageId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message_ID', ``, 'string') }}"
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        -1808,
+        -336
+      ],
+      "id": "9372a230-ad98-468d-889a-ec2bee70c1de",
+      "name": "Delete an e-mail",
+      "webhookId": "bb7a5919-6824-4026-8720-4dc83b7f247e",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "MfuUMkpTyKDo5WSC",
+          "name": "Gmail account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "markAsRead",
+        "messageId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message_ID', ``, 'string') }}"
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        -1504,
+        -336
+      ],
+      "id": "4720ee99-ce4d-4f2e-8955-189760c661ea",
+      "name": "Mark as read",
+      "webhookId": "bb7a5919-6824-4026-8720-4dc83b7f247e",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "MfuUMkpTyKDo5WSC",
+          "name": "Gmail account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "markAsUnread",
+        "messageId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message_ID', ``, 'string') }}"
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        -1344,
+        -336
+      ],
+      "id": "40877668-8510-4397-859e-05dcdbe5c529",
+      "name": "Mark as unread",
+      "webhookId": "bb7a5919-6824-4026-8720-4dc83b7f247e",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "MfuUMkpTyKDo5WSC",
+          "name": "Gmail account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "reply",
+        "messageId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message_ID', ``, 'string') }}",
+        "emailType": "text",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        -1168,
+        -336
+      ],
+      "id": "86640e55-ca9e-4372-abb7-ebf5ce904762",
+      "name": "Reply to e-mail",
+      "webhookId": "bb7a5919-6824-4026-8720-4dc83b7f247e",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "MfuUMkpTyKDo5WSC",
+          "name": "Gmail account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "# E-Mail Agent\n\n\n",
+        "height": 496,
+        "width": 1232,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2128,
+        -672
+      ],
+      "typeVersion": 1,
+      "id": "45fae4a7-2d30-4189-9867-8399d55b656a",
+      "name": "Sticky Note9"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Call this tool if you want to post on x.",
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Prompt__User_Message_', ``, 'string') }}",
+        "options": {
+          "systemMessage": "=## Role\nYou are an expert in creating high-quality, engaging, and modern posts for **X (formerly Twitter)**.  \nYou receive information and generate posts that are:\n\n- **Concise and informative**, without unnecessary details.  \n- **Engaging and dynamic**, designed to capture attention and encourage interaction.  \n- **Trending and optimized**, using relevant keywords and hashtags for maximum reach.  \n- **Structured for readability**, utilizing short paragraphs, line breaks, and emojis to enhance engagement.  \n\n---\n\n## Post Style\nYour posts should primarily focus on **AI topics** and often begin with this format:\n\n👉 *“XYZ just dropped XYZ, and people are already doing crazy stuff with it—10 examples.”*  \n\n⚠️ **Important:** When creating a post, always use the **savePost** tool to store it.  \n\n---\n\n## Tools\n\n### savePost\nUse this tool to save the post in a **Google Sheets document**. Include:\n\n- **Column 1:** Current date  \n- **Column 2:** Post topic  \n- **Column 3:** Post content (plain text)  \n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "typeVersion": 2.2,
+      "position": [
+        -1376,
+        -976
+      ],
+      "id": "1761727c-41f1-43f2-848b-6738037f9099",
+      "name": "Social Media Agent"
+    },
+    {
+      "parameters": {
+        "content": "# Calender Agent\n\n\n",
+        "height": 496,
+        "width": 880,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -880,
+        -672
+      ],
+      "typeVersion": 1,
+      "id": "ca629ac3-2d77-4e0c-a6cb-40147637105d",
+      "name": "Sticky Note10"
+    },
+    {
+      "parameters": {
+        "content": "# Social Media - Twitter\n\n\n",
+        "height": 336,
+        "width": 736,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1632,
+        -1040
+      ],
+      "typeVersion": 1,
+      "id": "8af0d460-eea0-4cf1-89ba-c61067833d33",
+      "name": "Sticky Note11"
+    },
+    {
+      "parameters": {
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.twitterTool",
+      "typeVersion": 2,
+      "position": [
+        -1408,
+        -864
+      ],
+      "id": "fb7c3daf-00c0-418b-a967-51de3e16c3c0",
+      "name": "Create Tweet in X",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1LVctGysj6Uro_Mx29CrV2WxsPnl4E9FPhbNfEYUBMwU",
+          "mode": "list",
+          "cachedResultName": "X-Posts",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1LVctGysj6Uro_Mx29CrV2WxsPnl4E9FPhbNfEYUBMwU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1LVctGysj6Uro_Mx29CrV2WxsPnl4E9FPhbNfEYUBMwU/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Date ": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Date_', ``, 'string') }}",
+            "Theme": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Theme', ``, 'string') }}",
+            "Posts": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Posts', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "Date "
+          ],
+          "schema": [
+            {
+              "id": "Date ",
+              "displayName": "Date ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Theme",
+              "displayName": "Theme",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Posts",
+              "displayName": "Posts",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        -1104,
+        -848
+      ],
+      "id": "d6e2e0db-a1ad-44bb-bc8c-3e71b0ce495a",
+      "name": "x post",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "nwEVcXu9XydfOrtU",
+          "name": "Google Sheets account 6"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -1520,
+        -1168
+      ],
+      "id": "f8a3c8de-8f29-435b-95ba-c53389521976",
+      "name": "GPT-4.1-mini",
+      "credentials": {
+        "openAiApi": {
+          "id": "msBoN0TevvUi90Ev",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -1584,
+        -832
+      ],
+      "id": "e15e9a3f-7256-4d03-9f58-a15ca968fc1a",
+      "name": "GPT-4.1-mini1",
+      "credentials": {
+        "openAiApi": {
+          "id": "msBoN0TevvUi90Ev",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -2800,
+        -336
+      ],
+      "id": "e639d931-3dd5-4156-b46d-f8664313bb9a",
+      "name": "GPT-4.1-mini2",
+      "credentials": {
+        "openAiApi": {
+          "id": "msBoN0TevvUi90Ev",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -2096,
+        -352
+      ],
+      "id": "3bec5952-e0d6-4d79-a519-5a2b10c7ad25",
+      "name": "GPT-4.1-mini3",
+      "credentials": {
+        "openAiApi": {
+          "id": "msBoN0TevvUi90Ev",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -848,
+        -368
+      ],
+      "id": "d144a45a-46af-49f4-8ceb-32abbd28273f",
+      "name": "GPT-4.1-mini4",
+      "credentials": {
+        "openAiApi": {
+          "id": "msBoN0TevvUi90Ev",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('WhatsApp Trigger').item.json.messages[0].from }}",
+        "contextWindowLength": 50
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -1360,
+        -1168
+      ],
+      "id": "fa1bc4ec-bf93-4129-8e47-18a4adb091a5",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "deae02c9-1aa9-43c0-b802-2e4f350fc27f",
+              "leftValue": "={{ $json.messages[0].from }}",
+              "rightValue": "15756398399",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "fc183bc1-3910-4282-be07-66b5248d3833",
+              "leftValue": "={{ $json.contacts[0].profile.name }}",
+              "rightValue": "Mohamed Elshamy",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -2944,
+        -1200
+      ],
+      "id": "7e3396bd-631e-4d4d-8426-ab2ec9b28c9d",
+      "name": "If1"
+    }
+  ],
+  "pinData": {
+    "WhatsApp Trigger": [
+      {
+        "json": {
+          "messaging_product": "whatsapp",
+          "metadata": {
+            "display_phone_number": "201018530316",
+            "phone_number_id": "803302272858386"
+          },
+          "contacts": [
+            {
+              "profile": {
+                "name": "Mohamed Elshamy"
+              },
+              "wa_id": "15756398399"
+            }
+          ],
+          "messages": [
+            {
+              "from": "15756398399",
+              "id": "wamid.HBgLMTU3NTYzOTgzOTkVAgASGBQzRkYxMTJCRDQ2NEZDM0VBRjg2OQA=",
+              "timestamp": "1756765146",
+              "text": {
+                "body": "hello"
+              },
+              "type": "text"
+            }
+          ],
+          "field": "messages"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "WhatsApp Trigger": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Text",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Download URL",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Download Image URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download URL": {
+      "main": [
+        [
+          {
+            "node": "Download Audio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transcribe a recording": {
+      "main": [
+        [
+          {
+            "node": "Voice",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text": {
+      "main": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Voice": {
+      "main": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Audio": {
+      "main": [
+        [
+          {
+            "node": "Transcribe a recording",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Generate audio",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate audio": {
+      "main": [
+        [
+          {
+            "node": "Send message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Image URL": {
+      "main": [
+        [
+          {
+            "node": "Download Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Image": {
+      "main": [
+        [
+          {
+            "node": "Analyze image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze image": {
+      "main": [
+        [
+          {
+            "node": "Image + Text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Image + Text": {
+      "main": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Orchestrator Agent": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calendar Agent": {
+      "ai_tool": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "E-Mails Agent1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search Agent": {
+      "ai_tool": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Search": {
+      "ai_tool": [
+        [
+          {
+            "node": "Search Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wikipedia": {
+      "ai_tool": [
+        [
+          {
+            "node": "Search Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get an article in Hacker News": {
+      "ai_tool": [
+        [
+          {
+            "node": "Search Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create an event": {
+      "ai_tool": [
+        [
+          {
+            "node": "Calendar Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete an event": {
+      "ai_tool": [
+        [
+          {
+            "node": "Calendar Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get an event": {
+      "ai_tool": [
+        [
+          {
+            "node": "Calendar Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Many Events": {
+      "ai_tool": [
+        [
+          {
+            "node": "Calendar Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Events": {
+      "ai_tool": [
+        [
+          {
+            "node": "Calendar Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "ai_tool": [
+        [
+          {
+            "node": "E-Mails Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete an e-mail": {
+      "ai_tool": [
+        [
+          {
+            "node": "E-Mails Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many e-mails": {
+      "ai_tool": [
+        [
+          {
+            "node": "E-Mails Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark as read": {
+      "ai_tool": [
+        [
+          {
+            "node": "E-Mails Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark as unread": {
+      "ai_tool": [
+        [
+          {
+            "node": "E-Mails Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reply to e-mail": {
+      "ai_tool": [
+        [
+          {
+            "node": "E-Mails Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Social Media Agent": {
+      "ai_tool": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Tweet in X": {
+      "ai_tool": [
+        [
+          {
+            "node": "Social Media Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "x post": {
+      "ai_tool": [
+        [
+          {
+            "node": "Social Media Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GPT-4.1-mini": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GPT-4.1-mini1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Social Media Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GPT-4.1-mini2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Search Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GPT-4.1-mini3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "E-Mails Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GPT-4.1-mini4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Calendar Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "9f559384-c24b-4e8a-98c4-3d8d7e57b2a6",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "8b02c297b9cb7dfc5562599c598a4b6e8d0f04ac4fd179c499ae6b438a1da9de"
+  },
+  "id": "OT4M73lwGsPUhcp1",
+  "tags": []
+}
