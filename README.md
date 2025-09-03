@@ -216,6 +216,7 @@ To keep your n8n instance up-to-date with the latest features and security patch
 - [🎓 n8n Academy](https://academy.n8n.io/)
 - [🧠 AI/ML Resources](https://github.com/josephmisiti/awesome-machine-learning)
 - [⚡ Automation Best Practices](https://n8n.io/blog/workflow-automation-best-practices/)
+- [🚀 Awesome N8N: Top 100 Community Nodes](https://github.com/restyler/awesome-n8n) - Curated list of the most popular community nodes and resources
 
 ## 👨‍🏫 About the Instructor
 
