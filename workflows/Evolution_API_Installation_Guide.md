@@ -147,9 +147,9 @@ Your Evolution API is secured with the key: `EvolutionAPI_MySecure_Key_2024_789x
 
 ### Access Points
 
-- **API Base URL:** `http://localhost:8080`
-- **Documentation:** `http://localhost:8080/docs` (if available)
-- **Database:** PostgreSQL on port `5432`
+- **API Base:** `http://localhost:8080`
+- **Manager Interface:** `http://localhost:8080/manager`
+- **API Documentation:** `http://localhost:8080/docs`
 
 ## 💻 **All Commands Summary**
 
