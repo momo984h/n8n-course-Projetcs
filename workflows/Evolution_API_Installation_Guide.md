@@ -25,6 +25,83 @@ Before starting the installation, ensure you have:
 - ✅ Basic command line knowledge
 - ✅ **n8n instance** running (for integration)
 
+### 🪟 **Installing WSL2 on Windows (Required for Windows Users)**
+
+WSL2 (Windows Subsystem for Linux 2) is required to run Docker containers on Windows. Follow these steps:
+
+#### **Step 1: Enable WSL2 via Command Prompt**
+
+1. **Open Command Prompt as Administrator:**
+   - Press `Win + R`, type `cmd`, then press `Ctrl + Shift + Enter`
+   - Or search "Command Prompt" → Right-click → "Run as administrator"
+
+2. **Enable WSL and Virtual Machine features:**
+   ```cmd
+   dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+   dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+   ```
+
+3. **Restart your computer** when prompted.
+
+#### **Step 2: Download and Install WSL2 Linux Kernel**
+
+1. **Download the WSL2 Linux kernel update package:**
+   - Visit: https://aka.ms/wsl2kernel
+   - Download and install the `wsl_update_x64.msi` package
+
+2. **Set WSL2 as default version:**
+   ```cmd
+   wsl --set-default-version 2
+   ```
+
+#### **Step 3: Install a Linux Distribution**
+
+1. **Install Ubuntu (recommended):**
+   ```cmd
+   wsl --install -d Ubuntu
+   ```
+
+   **Alternative method via Microsoft Store:**
+   - Open Microsoft Store
+   - Search for "Ubuntu" 
+   - Click "Get" or "Install"
+
+2. **Complete Linux setup:**
+   - Launch Ubuntu from Start Menu
+   - Create username and password when prompted
+   - Wait for installation to complete
+
+#### **Step 4: Verify WSL2 Installation**
+
+```cmd
+# Check WSL version
+wsl --list --verbose
+
+# Expected output:
+# NAME      STATE           VERSION
+# Ubuntu    Running         2
+```
+
+#### **🔧 WSL2 Troubleshooting**
+
+**❌ "WSL 2 requires an update to its kernel component"**
+```cmd
+# Solution: Download and install the kernel update
+# Visit: https://aka.ms/wsl2kernel
+```
+
+**❌ "The requested operation could not be completed due to a virtual disk system limitation"**
+```cmd
+# Solution: Enable Hyper-V in Windows Features
+# Go to: Control Panel → Programs → Turn Windows features on or off → Check Hyper-V
+```
+
+**❌ "WSL 2 installation is incomplete"**
+```cmd
+# Solution: Restart Windows and run:
+wsl --update
+```
+
 ## 🧹 Clean Up Previous Installation (If Any)
 
 If you have a previous Evolution API installation, clean it up first:
