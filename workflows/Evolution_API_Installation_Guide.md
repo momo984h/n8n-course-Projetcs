@@ -80,7 +80,7 @@ Should show: `"Ready to accept connections"`
 ### Step 5: Start Evolution API with QR Code Fix
 
 ```cmd
-docker stop evolution_api && docker rm evolution_api && docker run -d --name evolution_api -p 8080:8080 -e AUTHENTICATION_API_KEY=EvolutionAPI_MySecure_Key_2024_789xyz -e DATABASE_PROVIDER=postgresql -e DATABASE_CONNECTION_URI=postgresql://evolution:evolution123@host.docker.internal:5432/evolution -e REDIS_URI=redis://host.docker.internal:6379 -e SERVER_URL=http://localhost:8080 -e CORS_ORIGIN=* -e DATABASE_ENABLED=true -e DATABASE_SAVE_MESSAGE_UPDATE=true -e DATABASE_SAVE_DATA_CHATS=true -e CONFIG_SESSION_PHONE_VERSION=2.3000.1023181082 --link evolution_postgres:postgres --link evolution_redis:redis atendai/evolution-api:latest
+docker run -d --name evolution_api -p 8080:8080 -e AUTHENTICATION_API_KEY=EvolutionAPI_MySecure_Key_2024_789xyz -e DATABASE_PROVIDER=postgresql -e DATABASE_CONNECTION_URI=postgresql://evolution:evolution123@host.docker.internal:5432/evolution -e REDIS_URI=redis://host.docker.internal:6379 -e SERVER_URL=http://localhost:8080 -e CORS_ORIGIN=* -e DATABASE_ENABLED=true -e DATABASE_SAVE_MESSAGE_UPDATE=true -e DATABASE_SAVE_DATA_CHATS=true -e CONFIG_SESSION_PHONE_VERSION=2.3000.1023181082 --link evolution_postgres:postgres --link evolution_redis:redis atendai/evolution-api:latest
 ```
 
 ### Step 6: Verify All Services Running
@@ -164,7 +164,7 @@ docker logs evolution_redis
 
 ### **6. Start Evolution API with QR Code Fix**
 ```cmd
-docker stop evolution_api && docker rm evolution_api && docker run -d --name evolution_api -p 8080:8080 -e AUTHENTICATION_API_KEY=EvolutionAPI_MySecure_Key_2024_789xyz -e DATABASE_PROVIDER=postgresql -e DATABASE_CONNECTION_URI=postgresql://evolution:evolution123@host.docker.internal:5432/evolution -e REDIS_URI=redis://host.docker.internal:6379 -e SERVER_URL=http://localhost:8080 -e CORS_ORIGIN=* -e DATABASE_ENABLED=true -e DATABASE_SAVE_MESSAGE_UPDATE=true -e DATABASE_SAVE_DATA_CHATS=true -e CONFIG_SESSION_PHONE_VERSION=2.3000.1023181082 --link evolution_postgres:postgres --link evolution_redis:redis atendai/evolution-api:latest
+docker run -d --name evolution_api -p 8080:8080 -e AUTHENTICATION_API_KEY=EvolutionAPI_MySecure_Key_2024_789xyz -e DATABASE_PROVIDER=postgresql -e DATABASE_CONNECTION_URI=postgresql://evolution:evolution123@host.docker.internal:5432/evolution -e REDIS_URI=redis://host.docker.internal:6379 -e SERVER_URL=http://localhost:8080 -e CORS_ORIGIN=* -e DATABASE_ENABLED=true -e DATABASE_SAVE_MESSAGE_UPDATE=true -e DATABASE_SAVE_DATA_CHATS=true -e CONFIG_SESSION_PHONE_VERSION=2.3000.1023181082 --link evolution_postgres:postgres --link evolution_redis:redis atendai/evolution-api:latest
 ```
 
 ### **7. Verify Installation**
