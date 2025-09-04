@@ -162,3 +162,51 @@ Your Evolution API is secured with the key: `EvolutionAPI_MySecure_Key_2024_789x
 - **Documentation:** `http://localhost:8080/docs` (if available)
 - **Database:** PostgreSQL on port `5432`
 
+## 💻 **All Commands Summary**
+
+Copy and paste these commands in order:
+
+### **1. Install WSL2 (Windows Only)**
+```cmd
+# Open PowerShell as Administrator
+wsl --install
+# Restart computer when prompted
+```
+
+### **2. Clean Up Previous Installation (If Any)**
+```bash
+docker stop evolution_api evolution_postgres
+docker rm -f evolution_api evolution_postgres
+```
+
+### **3. Clone Repository**
+```bash
+git clone https://github.com/EvolutionAPI/evolution-api.git
+cd evolution-api
+```
+
+### **4. Create PostgreSQL Database**
+```bash
+docker run -d --name evolution_postgres -e POSTGRES_DB=evolution -e POSTGRES_USER=evolution -e POSTGRES_PASSWORD=evolution123 -p 5432:5432 postgres:13
+```
+
+### **5. Wait for Database (Check Logs)**
+```bash
+docker logs evolution_postgres
+# Wait for: "database system is ready to accept connections"
+```
+
+### **6. Install Evolution API**
+```bash
+docker run -d --name evolution_api -p 8080:8080 -e AUTHENTICATION_API_KEY=EvolutionAPI_MySecure_Key_2024_789xyz -e DATABASE_PROVIDER=postgresql -e DATABASE_CONNECTION_URI=postgresql://evolution:evolution123@host.docker.internal:5432/evolution --link evolution_postgres:postgres atendai/evolution-api:latest
+```
+
+### **7. Verify Installation**
+```bash
+docker ps
+docker logs evolution_api
+curl http://localhost:8080
+```
+
+**🎯 Your Evolution API will be running at:** `http://localhost:8080`
+
