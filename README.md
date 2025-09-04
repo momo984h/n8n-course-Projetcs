@@ -141,6 +141,12 @@ To keep your n8n instance up-to-date with the latest features and security patch
 | **WhatsApp Multi-Agent System** | Comprehensive multi-agent WhatsApp system with voice, text, and image processing. Features specialized agents for calendar management, email handling, web search, and social media posting | [📁 Download](workflows/49-WhatsApp%20Multi-Agent_Voice_Text_Image.json) | [🎥 Watch](https://www.youtube.com/watch?v=VSeo-PUuva8&list=PLZ42ZUInDWC79Bw1K_tYQhUPfFRV7fy8v&index=62) |
 | **Secured WhatsApp Multi-Agent System** | Enhanced multi-agent WhatsApp system with voice, text, and image processing plus security authentication. Features specialized agents for calendar management, email handling, web search, and social media posting with authorized user verification | [📁 Download](workflows/50_WAgentEnhancement_Secured.json) | [🎥 Watch](https://www.youtube.com/watch?v=VIDEO_ID_PLACEHOLDER) *(Coming Soon)* |
 
+### 📋 **Installation Guides**
+
+| Guide | Description | Installation Guide |
+|-------|-------------|-------------------|
+| **WhatsApp Evolution API Setup** | Complete step-by-step guide to install and configure WhatsApp Evolution API for n8n integration. Includes Docker setup, database configuration, and n8n connection steps | [📖 Installation Guide](workflows/Evolution_API_Installation_Guide.md) |
+
 ## 🛠️ Technologies & Integrations
 
 ### **Core Technologies**
