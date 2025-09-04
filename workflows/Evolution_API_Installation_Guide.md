@@ -47,7 +47,7 @@ This enables everything and installs Ubuntu by default.
 
 If you have a previous Evolution API installation, clean it up first:
 
-```bash
+```cmd
 # Stop and remove existing containers
 docker stop evolution_api evolution_postgres
 docker rm -f evolution_api evolution_postgres
@@ -60,7 +60,7 @@ docker volume prune
 
 ### Step 1: Clone the Repository
 
-```bash
+```cmd
 git clone https://github.com/EvolutionAPI/evolution-api.git
 cd evolution-api
 ```
@@ -75,13 +75,8 @@ Receiving objects: 100% (XXXX/XXXX), XX.XX MiB | XX.XX MiB/s, done.
 
 ### Step 2: Create PostgreSQL Database
 
-```bash
-docker run -d --name evolution_postgres \
-  -e POSTGRES_DB=evolution \
-  -e POSTGRES_USER=evolution \
-  -e POSTGRES_PASSWORD=evolution123 \
-  -p 5432:5432 \
-  postgres:13
+```cmd
+docker run -d --name evolution_postgres -e POSTGRES_DB=evolution -e POSTGRES_USER=evolution -e POSTGRES_PASSWORD=evolution123 -p 5432:5432 postgres:13
 ```
 
 **Expected Output:**
@@ -95,7 +90,7 @@ Status: Downloaded newer image for postgres:13
 
 ### Step 3: Wait for PostgreSQL to Initialize
 
-```bash
+```cmd
 docker logs evolution_postgres
 ```
 
@@ -108,14 +103,8 @@ database system is ready to accept connections
 
 ### Step 4: Install Evolution API
 
-```bash
-docker run -d --name evolution_api \
-  -p 8080:8080 \
-  -e AUTHENTICATION_API_KEY=EvolutionAPI_MySecure_Key_2024_789xyz \
-  -e DATABASE_PROVIDER=postgresql \
-  -e DATABASE_CONNECTION_URI=postgresql://evolution:evolution123@host.docker.internal:5432/evolution \
-  --link evolution_postgres:postgres \
-  atendai/evolution-api:latest
+```cmd
+docker run -d --name evolution_api -p 8080:8080 -e AUTHENTICATION_API_KEY=EvolutionAPI_MySecure_Key_2024_789xyz -e DATABASE_PROVIDER=postgresql -e DATABASE_CONNECTION_URI=postgresql://evolution:evolution123@host.docker.internal:5432/evolution --link evolution_postgres:postgres atendai/evolution-api:latest
 ```
 
 **Expected Output:**
@@ -129,7 +118,7 @@ Status: Downloaded newer image for atendai/evolution-api:latest
 
 ### Step 5: Verify Installation
 
-```bash
+```cmd
 # Check if containers are running
 docker ps
 
@@ -174,35 +163,35 @@ wsl --install
 ```
 
 ### **2. Clean Up Previous Installation (If Any)**
-```bash
+```cmd
 docker stop evolution_api evolution_postgres
 docker rm -f evolution_api evolution_postgres
 ```
 
 ### **3. Clone Repository**
-```bash
+```cmd
 git clone https://github.com/EvolutionAPI/evolution-api.git
 cd evolution-api
 ```
 
 ### **4. Create PostgreSQL Database**
-```bash
+```cmd
 docker run -d --name evolution_postgres -e POSTGRES_DB=evolution -e POSTGRES_USER=evolution -e POSTGRES_PASSWORD=evolution123 -p 5432:5432 postgres:13
 ```
 
 ### **5. Wait for Database (Check Logs)**
-```bash
+```cmd
 docker logs evolution_postgres
 # Wait for: "database system is ready to accept connections"
 ```
 
 ### **6. Install Evolution API**
-```bash
+```cmd
 docker run -d --name evolution_api -p 8080:8080 -e AUTHENTICATION_API_KEY=EvolutionAPI_MySecure_Key_2024_789xyz -e DATABASE_PROVIDER=postgresql -e DATABASE_CONNECTION_URI=postgresql://evolution:evolution123@host.docker.internal:5432/evolution --link evolution_postgres:postgres atendai/evolution-api:latest
 ```
 
 ### **7. Verify Installation**
-```bash
+```cmd
 docker ps
 docker logs evolution_api
 curl http://localhost:8080
