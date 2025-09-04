@@ -49,7 +49,6 @@ This enables everything and installs Ubuntu by default.
 ```cmd
 docker stop evolution_api evolution_postgres evolution_redis
 docker rm -f evolution_api evolution_postgres evolution_redis
-docker system prune -f
 ```
 
 ### Step 2: Start PostgreSQL Database
@@ -145,7 +144,6 @@ wsl --install
 ```cmd
 docker stop evolution_api evolution_postgres evolution_redis
 docker rm -f evolution_api evolution_postgres evolution_redis
-docker system prune -f
 ```
 
 ### **3. Start PostgreSQL Database**
