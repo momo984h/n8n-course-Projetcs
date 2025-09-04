@@ -20,10 +20,9 @@ Evolution API is an open-source WhatsApp integration API that provides a compreh
 Before starting the installation, ensure you have:
 
 - ✅ **Docker Desktop** installed and running
-- ✅ **WSL2** enabled (for Windows users)
-- ✅ **Git** installed
-- ✅ Basic command line knowledge
-- ✅ **n8n instance** running (for integration)
+- ✅ **WSL2** enabled (for Windows)
+- ✅ **Command Prompt or PowerShell** access
+- ✅ **Ports 8080, 5432, and 6379** available
 
 ### 🪟 **Why WSL2 is Required for Docker on Windows**
 
@@ -43,96 +42,76 @@ Docker Desktop on Windows uses WSL2 as its backend because:
 
 This enables everything and installs Ubuntu by default.
 
-## 🧹 Clean Up Previous Installation (If Any)
+## 🚀 Complete Evolution API Installation - Working Solution
 
-If you have a previous Evolution API installation, clean it up first:
-
-```cmd
-# Stop and remove existing containers
-docker stop evolution_api evolution_postgres
-docker rm -f evolution_api evolution_postgres
-
-# Remove any existing volumes (optional - only if you want to start completely fresh)
-docker volume prune
-```
-
-## 🚀 Complete Fresh Installation
-
-### Step 1: Clone the Repository
+### Step 1: Complete Cleanup (if needed)
 
 ```cmd
-git clone https://github.com/EvolutionAPI/evolution-api.git
-cd evolution-api
+docker stop evolution_api evolution_postgres evolution_redis
+docker rm -f evolution_api evolution_postgres evolution_redis
+docker system prune -f
 ```
 
-**Expected Output:**
-```
-Cloning into 'evolution-api'...
-remote: Enumerating objects: XXXX, done.
-remote: Total XXXX (delta 0), reused 0 (delta 0), pack-reused XXXX
-Receiving objects: 100% (XXXX/XXXX), XX.XX MiB | XX.XX MiB/s, done.
-```
-
-### Step 2: Create PostgreSQL Database
+### Step 2: Start PostgreSQL Database
 
 ```cmd
 docker run -d --name evolution_postgres -e POSTGRES_DB=evolution -e POSTGRES_USER=evolution -e POSTGRES_PASSWORD=evolution123 -p 5432:5432 postgres:13
 ```
 
-**Expected Output:**
-```
-Unable to find image 'postgres:13' locally
-13: Pulling from library/postgres
-...
-Status: Downloaded newer image for postgres:13
-[CONTAINER_ID]
+### Step 3: Start Redis Cache
+
+```cmd
+docker run -d --name evolution_redis -p 6379:6379 redis:7-alpine
 ```
 
-### Step 3: Wait for PostgreSQL to Initialize
+### Step 4: Wait for Services to Initialize
 
+**Check PostgreSQL:**
 ```cmd
 docker logs evolution_postgres
 ```
+Wait for: `"database system is ready to accept connections"`
 
-**Wait for this message:**
+**Check Redis:**
+```cmd
+docker logs evolution_redis
 ```
-database system is ready to accept connections
-```
+Should show: `"Ready to accept connections"`
 
-⏱️ **Note:** This may take 30-60 seconds for first-time setup.
-
-### Step 4: Install Evolution API
+### Step 5: Start Evolution API with QR Code Fix
 
 ```cmd
-docker run -d --name evolution_api -p 8080:8080 -e AUTHENTICATION_API_KEY=EvolutionAPI_MySecure_Key_2024_789xyz -e DATABASE_PROVIDER=postgresql -e DATABASE_CONNECTION_URI=postgresql://evolution:evolution123@host.docker.internal:5432/evolution --link evolution_postgres:postgres atendai/evolution-api:latest
+docker stop evolution_api && docker rm evolution_api && docker run -d --name evolution_api -p 8080:8080 -e AUTHENTICATION_API_KEY=EvolutionAPI_MySecure_Key_2024_789xyz -e DATABASE_PROVIDER=postgresql -e DATABASE_CONNECTION_URI=postgresql://evolution:evolution123@host.docker.internal:5432/evolution -e REDIS_URI=redis://host.docker.internal:6379 -e SERVER_URL=http://localhost:8080 -e CORS_ORIGIN=* -e DATABASE_ENABLED=true -e DATABASE_SAVE_MESSAGE_UPDATE=true -e DATABASE_SAVE_DATA_CHATS=true -e CONFIG_SESSION_PHONE_VERSION=2.3000.1023181082 --link evolution_postgres:postgres --link evolution_redis:redis atendai/evolution-api:latest
 ```
 
-**Expected Output:**
-```
-Unable to find image 'atendai/evolution-api:latest' locally
-latest: Pulling from atendai/evolution-api
-...
-Status: Downloaded newer image for atendai/evolution-api:latest
-[CONTAINER_ID]
-```
-
-### Step 5: Verify Installation
+### Step 6: Verify All Services Running
 
 ```cmd
-# Check if containers are running
 docker ps
+```
 
-# Check Evolution API logs
+**Expected output: 3 containers running**
+- `evolution_postgres`
+- `evolution_redis`  
+- `evolution_api`
+
+### Step 7: Check Evolution API Logs
+
+```cmd
 docker logs evolution_api
+```
 
-# Test API endpoint
+**Should see:**
+- ✅ Database migrations completed
+- ✅ HTTP - ON: 8080
+- ✅ No Redis disconnect errors
+- ✅ WA MODULE - ON
+
+### Step 8: Verify API is Working
+
+```cmd
 curl http://localhost:8080
 ```
-
-**Expected Results:**
-- Both containers should be listed as "Up"
-- API should respond with a welcome message or API documentation
-- No critical errors in logs
 
 ## 🔧 Configuration
 
@@ -162,32 +141,32 @@ wsl --install
 # Restart computer when prompted
 ```
 
-### **2. Clean Up Previous Installation (If Any)**
+### **2. Complete Cleanup (if needed)**
 ```cmd
-docker stop evolution_api evolution_postgres
-docker rm -f evolution_api evolution_postgres
+docker stop evolution_api evolution_postgres evolution_redis
+docker rm -f evolution_api evolution_postgres evolution_redis
+docker system prune -f
 ```
 
-### **3. Clone Repository**
-```cmd
-git clone https://github.com/EvolutionAPI/evolution-api.git
-cd evolution-api
-```
-
-### **4. Create PostgreSQL Database**
+### **3. Start PostgreSQL Database**
 ```cmd
 docker run -d --name evolution_postgres -e POSTGRES_DB=evolution -e POSTGRES_USER=evolution -e POSTGRES_PASSWORD=evolution123 -p 5432:5432 postgres:13
 ```
 
-### **5. Wait for Database (Check Logs)**
+### **4. Start Redis Cache**
 ```cmd
-docker logs evolution_postgres
-# Wait for: "database system is ready to accept connections"
+docker run -d --name evolution_redis -p 6379:6379 redis:7-alpine
 ```
 
-### **6. Install Evolution API**
+### **5. Wait for Services (Check Logs)**
 ```cmd
-docker run -d --name evolution_api -p 8080:8080 -e AUTHENTICATION_API_KEY=EvolutionAPI_MySecure_Key_2024_789xyz -e DATABASE_PROVIDER=postgresql -e DATABASE_CONNECTION_URI=postgresql://evolution:evolution123@host.docker.internal:5432/evolution --link evolution_postgres:postgres atendai/evolution-api:latest
+docker logs evolution_postgres
+docker logs evolution_redis
+```
+
+### **6. Start Evolution API with QR Code Fix**
+```cmd
+docker stop evolution_api && docker rm evolution_api && docker run -d --name evolution_api -p 8080:8080 -e AUTHENTICATION_API_KEY=EvolutionAPI_MySecure_Key_2024_789xyz -e DATABASE_PROVIDER=postgresql -e DATABASE_CONNECTION_URI=postgresql://evolution:evolution123@host.docker.internal:5432/evolution -e REDIS_URI=redis://host.docker.internal:6379 -e SERVER_URL=http://localhost:8080 -e CORS_ORIGIN=* -e DATABASE_ENABLED=true -e DATABASE_SAVE_MESSAGE_UPDATE=true -e DATABASE_SAVE_DATA_CHATS=true -e CONFIG_SESSION_PHONE_VERSION=2.3000.1023181082 --link evolution_postgres:postgres --link evolution_redis:redis atendai/evolution-api:latest
 ```
 
 ### **7. Verify Installation**
