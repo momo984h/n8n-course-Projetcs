@@ -27,22 +27,13 @@ Before starting the installation, ensure you have:
 
 ### 🪟 **Installing WSL2 on Windows**
 
-**Open Command Prompt as Administrator** and run:
+**One-command install (recommended):**
 
-```cmd
-# Enable WSL2 features
-dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
-dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+1. Open **PowerShell as Administrator** (right-click → Run as administrator)
+2. Run: `wsl --install`
+3. Restart when prompted
 
-# Restart computer, then run:
-wsl --set-default-version 2
-wsl --install -d Ubuntu
-
-# Verify installation
-wsl --list --verbose
-```
-
-**Download WSL2 kernel update:** https://aka.ms/wsl2kernel
+This enables everything and installs Ubuntu by default.
 
 ## 🧹 Clean Up Previous Installation (If Any)
 
