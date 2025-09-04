@@ -25,9 +25,17 @@ Before starting the installation, ensure you have:
 - ✅ Basic command line knowledge
 - ✅ **n8n instance** running (for integration)
 
-### 🪟 **Installing WSL2 on Windows**
+### 🪟 **Why WSL2 is Required for Docker on Windows**
 
-**One-command install (recommended):**
+Docker Desktop on Windows uses WSL2 as its backend because:
+- **🐧 Linux Containers:** Docker containers are Linux-based, WSL2 provides the Linux kernel
+- **⚡ Performance:** WSL2 offers near-native Linux performance vs slower Hyper-V
+- **🔗 Integration:** Seamless file sharing between Windows and Linux environments
+- **💾 Resource Efficiency:** Better memory and CPU usage than traditional VMs
+
+### **Installing WSL2 on Windows**
+
+**One-command install:**
 
 1. Open **PowerShell as Administrator** (right-click → Run as administrator)
 2. Run: `wsl --install`
