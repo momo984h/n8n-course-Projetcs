@@ -73,6 +73,8 @@ cp .env.example .env
 
 Replace the existing `docker-compose.yaml` with the provided configuration file.
 
+**[📁 Download docker-compose.yaml](../docker-compose.yaml)**
+
 ### Step 5: Start All Services
 
 ```cmd
@@ -138,7 +140,8 @@ cp .env.example .env
 - Change: `AUTHENTICATION_API_KEY=EvolutionAPI_MySecure_Key_2024_789xyz`
 
 ### **5. Replace docker-compose.yaml**
-- Replace with provided configuration file
+- **[📁 Download docker-compose.yaml](../docker-compose.yaml)**
+- Replace the existing file with this configuration
 
 ### **6. Start All Services**
 ```cmd
