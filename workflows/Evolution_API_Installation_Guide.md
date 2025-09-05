@@ -116,44 +116,16 @@ Your Evolution API is secured with the key: `EvolutionAPI_MySecure_Key_2024_789x
 - **Manager Interface:** `http://localhost:8080/manager`
 - **API Documentation:** `http://localhost:8080/docs`
 
-## 💻 **All Commands Summary**
+## 📥 **Download Complete Installation Package**
 
-Copy and paste these commands in order:
+For easier installation, download the complete package with all required files:
 
-### **1. Install WSL2 (Windows Only)**
-```cmd
-wsl --install
-```
+**[📦 Download Evolution_API_Installation.zip](Evolution_API_Installation.zip)**
 
-### **2. Clone Repository**
-```cmd
-git clone https://github.com/EvolutionAPI/evolution-api.git
-cd evolution-api
-```
+This ZIP file contains:
+- `docker-compose.yaml` - Complete Docker configuration
+- `.env.example` - Environment template file  
+- `README.md` - Quick setup instructions
 
-### **3. Setup Environment**
-```cmd
-cp .env.example .env
-```
-
-### **4. Edit API Key in .env file**
-- Change: `AUTHENTICATION_API_KEY=EvolutionAPI_MySecure_Key_2024_789xyz`
-
-### **5. Replace docker-compose.yaml**
-- **[📁 Download docker-compose.yaml](../docker-compose.yaml)**
-- Replace the existing file with this configuration
-
-### **6. Start All Services**
-```cmd
-docker compose up -d
-```
-
-### **7. Verify Installation**
-```cmd
-docker compose ps
-docker compose logs evolution_api
-curl http://localhost:8080
-```
-
-**🎯 Your Evolution API will be running at:** `http://localhost:8080`
+**Installation:** Extract the ZIP file and follow the steps above.
 
