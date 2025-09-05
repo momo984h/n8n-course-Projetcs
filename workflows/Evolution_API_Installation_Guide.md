@@ -42,75 +42,60 @@ Docker Desktop on Windows uses WSL2 as its backend because:
 
 This enables everything and installs Ubuntu by default.
 
-## 🚀 Complete Evolution API Installation - Working Solution
+## 🚀 Evolution API Installation - Latest Version (Final Steps)
 
-### Step 1: Complete Cleanup (if needed)
+### Step 1: Install WSL2 (Windows Only)
 
 ```cmd
-docker stop evolution_api evolution_postgres evolution_redis
-docker rm -f evolution_api evolution_postgres evolution_redis
+wsl --install
+```
+Restart computer when prompted.
+
+### Step 2: Clone Evolution API Repository
+
+```cmd
+git clone https://github.com/EvolutionAPI/evolution-api.git
+cd evolution-api
 ```
 
-### Step 2: Start PostgreSQL Database
+### Step 3: Setup Environment Configuration
 
 ```cmd
-docker run -d --name evolution_postgres -e POSTGRES_DB=evolution -e POSTGRES_USER=evolution -e POSTGRES_PASSWORD=evolution123 -p 5432:5432 postgres:13
+cp .env.example .env
 ```
 
-### Step 3: Start Redis Cache
+**Edit the `.env` file and change the API Key:**
+- Open `.env` file in any text editor
+- Find: `AUTHENTICATION_API_KEY=`
+- Change to: `AUTHENTICATION_API_KEY=EvolutionAPI_MySecure_Key_2024_789xyz`
+
+### Step 4: Replace Docker Compose File
+
+Replace the existing `docker-compose.yaml` with the provided configuration file.
+
+### Step 5: Start All Services
 
 ```cmd
-docker run -d --name evolution_redis -p 6379:6379 redis:7-alpine
+docker compose up -d
 ```
 
-### Step 4: Wait for Services to Initialize
-
-**Check PostgreSQL:**
-```cmd
-docker logs evolution_postgres
-```
-Wait for: `"database system is ready to accept connections"`
-
-**Check Redis:**
-```cmd
-docker logs evolution_redis
-```
-Should show: `"Ready to accept connections"`
-
-### Step 5: Start Evolution API with QR Code Fix
+### Step 6: Verify Installation
 
 ```cmd
-docker run -d --name evolution_api -p 8080:8080 -e AUTHENTICATION_API_KEY=EvolutionAPI_MySecure_Key_2024_789xyz -e DATABASE_PROVIDER=postgresql -e DATABASE_CONNECTION_URI=postgresql://evolution:evolution123@host.docker.internal:5432/evolution -e REDIS_URI=redis://host.docker.internal:6379 -e SERVER_URL=http://localhost:8080 -e CORS_ORIGIN=* -e DATABASE_ENABLED=true -e DATABASE_SAVE_MESSAGE_UPDATE=true -e DATABASE_SAVE_DATA_CHATS=true -e CONFIG_SESSION_PHONE_VERSION=2.3000.1023181082 --link evolution_postgres:postgres --link evolution_redis:redis atendai/evolution-api:latest
-```
+# Check all containers are running
+docker compose ps
 
-### Step 6: Verify All Services Running
+# Check Evolution API logs
+docker compose logs evolution_api
 
-```cmd
-docker ps
-```
-
-**Expected output: 3 containers running**
-- `evolution_postgres`
-- `evolution_redis`  
-- `evolution_api`
-
-### Step 7: Check Evolution API Logs
-
-```cmd
-docker logs evolution_api
-```
-
-**Should see:**
-- ✅ Database migrations completed
-- ✅ HTTP - ON: 8080
-- ✅ No Redis disconnect errors
-- ✅ WA MODULE - ON
-
-### Step 8: Verify API is Working
-
-```cmd
+# Test API endpoint
 curl http://localhost:8080
 ```
+
+**Expected: 3 containers running**
+- `evolution_api`
+- `postgres`
+- `redis`
 
 ## 🔧 Configuration
 
@@ -135,42 +120,35 @@ Copy and paste these commands in order:
 
 ### **1. Install WSL2 (Windows Only)**
 ```cmd
-# Open PowerShell as Administrator
 wsl --install
-# Restart computer when prompted
 ```
 
-### **2. Complete Cleanup (if needed)**
+### **2. Clone Repository**
 ```cmd
-docker stop evolution_api evolution_postgres evolution_redis
-docker rm -f evolution_api evolution_postgres evolution_redis
+git clone https://github.com/EvolutionAPI/evolution-api.git
+cd evolution-api
 ```
 
-### **3. Start PostgreSQL Database**
+### **3. Setup Environment**
 ```cmd
-docker run -d --name evolution_postgres -e POSTGRES_DB=evolution -e POSTGRES_USER=evolution -e POSTGRES_PASSWORD=evolution123 -p 5432:5432 postgres:13
+cp .env.example .env
 ```
 
-### **4. Start Redis Cache**
-```cmd
-docker run -d --name evolution_redis -p 6379:6379 redis:7-alpine
-```
+### **4. Edit API Key in .env file**
+- Change: `AUTHENTICATION_API_KEY=EvolutionAPI_MySecure_Key_2024_789xyz`
 
-### **5. Wait for Services (Check Logs)**
-```cmd
-docker logs evolution_postgres
-docker logs evolution_redis
-```
+### **5. Replace docker-compose.yaml**
+- Replace with provided configuration file
 
-### **6. Start Evolution API with QR Code Fix**
+### **6. Start All Services**
 ```cmd
-docker run -d --name evolution_api -p 8080:8080 -e AUTHENTICATION_API_KEY=EvolutionAPI_MySecure_Key_2024_789xyz -e DATABASE_PROVIDER=postgresql -e DATABASE_CONNECTION_URI=postgresql://evolution:evolution123@host.docker.internal:5432/evolution -e REDIS_URI=redis://host.docker.internal:6379 -e SERVER_URL=http://localhost:8080 -e CORS_ORIGIN=* -e DATABASE_ENABLED=true -e DATABASE_SAVE_MESSAGE_UPDATE=true -e DATABASE_SAVE_DATA_CHATS=true -e CONFIG_SESSION_PHONE_VERSION=2.3000.1023181082 --link evolution_postgres:postgres --link evolution_redis:redis atendai/evolution-api:latest
+docker compose up -d
 ```
 
 ### **7. Verify Installation**
 ```cmd
-docker ps
-docker logs evolution_api
+docker compose ps
+docker compose logs evolution_api
 curl http://localhost:8080
 ```
 
