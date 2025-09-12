@@ -100,7 +100,7 @@ Your `docker-compose.yml` file needs specific modifications to work with a root 
 - traefik.http.routers.n8n.rule=Host(`${SUBDOMAIN}.${DOMAIN_NAME}`)
 - N8N_HOST=${SUBDOMAIN}.${DOMAIN_NAME}
 - WEBHOOK_URL=https://${SUBDOMAIN}.${DOMAIN_NAME}/
-- traefik.http.routers.n8n.rule=Host(`${SUBDOMAIN}.${DOMAIN_NAME}`)
+- traefik.http.middlewares.n8n.headers.SSLHost=${DOMAIN_NAME}
 ```
 
 **✅ TO (root domain configuration):**
@@ -108,7 +108,7 @@ Your `docker-compose.yml` file needs specific modifications to work with a root 
 - traefik.http.routers.n8n.rule=Host(`${DOMAIN_NAME}`)
 - N8N_HOST=${DOMAIN_NAME}
 - WEBHOOK_URL=https://${DOMAIN_NAME}/
-- traefik.http.routers.n8n.rule=Host(`${DOMAIN_NAME}`)
+- traefik.http.middlewares.n8n.headers.SSLHost=${DOMAIN_NAME}
 ```
 
 #### Complete Docker Compose Example:
