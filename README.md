@@ -147,6 +147,7 @@ To keep your n8n instance up-to-date with the latest features and security patch
 | Guide | Description | Installation Guide |
 |-------|-------------|-------------------|
 | **WhatsApp Evolution API Setup** | Complete step-by-step guide to install and configure WhatsApp Evolution API for n8n integration. Includes Docker setup, database configuration, and n8n connection steps | [📖 Installation Guide](workflows/Evolution_API_Installation_Guide.md) |
+| **Hostinger Domain Setup** | Complete guide for configuring custom domain names with n8n on Hostinger VPS. Includes DNS configuration, SSL setup, and Docker environment updates | [📖 Setup Guide](Hostinger_Domain_Setup_Guide.md) |
 
 ## 🛠️ Technologies & Integrations
 
