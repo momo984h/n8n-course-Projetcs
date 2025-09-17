@@ -34,25 +34,6 @@ We need to create a subdomain for the Evolution API. In this guide, we'll use `e
 
 *Screenshot showing the Hostinger DNS management interface with the `evo` subdomain A record pointing to IP 212.213.181 with TTL 300*
 
-### Verification
-
-After setting up the DNS record, you can verify the Evolution API is working by visiting:
-```
-https://evo.elshamyn8n.shop/
-```
-
-You should see a response like:
-```json
-{
-  "status": 200,
-  "message": "Welcome to the Evolution API, it is working!",
-  "version": "2.1.1",
-  "clientName": "evolution_exchange",
-  "manager": "http://evo.elshamyn8n.shop/manager",
-  "documentation": "https://doc.evolution-api.com"
-}
-```
-
 ---
 
 *Next steps will be added in the following sections...*
