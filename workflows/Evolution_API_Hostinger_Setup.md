@@ -5,8 +5,8 @@ Complete guide for installing and configuring Evolution API on Hostinger VPS wit
 ## Prerequisites
 - Hostinger VPS account
 - Domain already configured with Hostinger
-- Basic knowledge of DNS configuration
-- SSH access to your VPS
+
+**📺 Video Tutorial**: [🎥 Complete Setup Guide](https://www.youtube.com/watch?v=eIyUlX0o-kQ&list=PLZ42ZUInDWC79Bw1K_tYQhUPfFRV7fy8v&index=67&t=1s)
 
 ## Step 1: DNS Subdomain Configuration
 
