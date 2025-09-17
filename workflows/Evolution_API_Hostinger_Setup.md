@@ -30,7 +30,9 @@ We need to create a subdomain for the Evolution API. In this guide, we'll use `e
      - **Points to**: Your VPS IP address (212.213.181)
      - **TTL**: 3600
 
-![DNS Configuration](dns-config-image-placeholder)
+![DNS Configuration](images/hostinger-dns-evo-subdomain.png)
+
+*Screenshot showing the Hostinger DNS management interface with the `evo` subdomain A record pointing to IP 212.213.181 with TTL 300*
 
 ### Verification
 
