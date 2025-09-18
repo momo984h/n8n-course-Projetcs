@@ -69,7 +69,7 @@ Create the `.env` file with the required configuration:
 
 ```bash
 cat > .env <<'EOF'
-AUTHENTICATION_API_KEY=33bdo&Mahmoud&Maria1994
+AUTHENTICATION_API_KEY=put your API Key
 SERVER_TYPE=http
 SERVER_PORT=8080
 CONFIG_SESSION_PHONE_VERSION=2.3000.1023204200
