@@ -34,6 +34,25 @@ We need to create a subdomain for the Evolution API. In this guide, we'll use `e
 
 *Screenshot showing the Hostinger DNS management interface with the `evo` subdomain A record pointing to IP 212.213.181 with TTL 300*
 
+## Step 2: Verify DNS Connection
+
+After configuring the DNS record, verify that the subdomain is properly pointing to your VPS IP address.
+
+### Using dig command
+
+Run the following command to check the DNS resolution:
+
+```bash
+dig +short evo.elshamyn8n.shop
+```
+
+**Expected Output:**
+```
+212.1.213.181
+```
+
+This confirms that the `evo` subdomain is correctly resolving to your VPS IP address.
+
 ---
 
 *Next steps will be added in the following sections...*
