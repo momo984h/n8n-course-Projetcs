@@ -146,7 +146,7 @@ EOF
 Deploy the Evolution API stack:
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 ---
