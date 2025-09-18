@@ -112,82 +112,67 @@ Your `docker-compose.yml` file needs specific modifications to work with a root 
 #### Complete Docker Compose Example:
 
 ```yaml
-version: '3.8'
+version: "3.7"
 
 services:
   traefik:
-    image: traefik:v2.10
-    container_name: traefik
-    restart: unless-stopped
+    image: "traefik"
+    restart: always
     command:
-      - --api.dashboard=true
-      - --api.insecure=false
-      - --providers.docker=true
-      - --providers.docker.exposedbydefault=false
-      - --entrypoints.web.address=:80
-      - --entrypoints.websecure.address=:443
-      - --certificatesresolvers.myresolver.acme.email=${SSL_EMAIL}
-      - --certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json
-      - --certificatesresolvers.myresolver.acme.tlschallenge=true
-      - --entrypoints.web.http.redirections.entrypoint.to=websecure
-      - --entrypoints.web.http.redirections.entrypoint.scheme=https
+      - "--api=true"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.mytlschallenge.acme.tlschallenge=true"
+      - "--certificatesresolvers.mytlschallenge.acme.email=${SSL_EMAIL}"
+      - "--certificatesresolvers.mytlschallenge.acme.storage=/letsencrypt/acme.json"
     ports:
       - "80:80"
       - "443:443"
     volumes:
+      - traefik_data:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - traefik_letsencrypt:/letsencrypt
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.traefik.rule=Host(`traefik.${DOMAIN_NAME}`)
-      - traefik.http.routers.traefik.entrypoints=websecure
-      - traefik.http.routers.traefik.tls.certresolver=myresolver
-      - traefik.http.routers.traefik.service=api@internal
 
   n8n:
     image: docker.n8n.io/n8nio/n8n
-    container_name: n8n
-    restart: unless-stopped
+    restart: always
+    ports:
+      - "127.0.0.1:5678:5678"
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.n8n.rule=Host(${DOMAIN_NAME})
+      - traefik.http.routers.n8n.tls=true
+      - traefik.http.routers.n8n.entrypoints=web,websecure
+      - traefik.http.routers.n8n.tls.certresolver=mytlschallenge
+      - traefik.http.middlewares.n8n.headers.SSLRedirect=true
+      - traefik.http.middlewares.n8n.headers.STSSeconds=315360000
+      - traefik.http.middlewares.n8n.headers.browserXSSFilter=true
+      - traefik.http.middlewares.n8n.headers.contentTypeNosniff=true
+      - traefik.http.middlewares.n8n.headers.forceSTSHeader=true
+      - traefik.http.middlewares.n8n.headers.SSLHost=${DOMAIN_NAME}
+      - traefik.http.middlewares.n8n.headers.STSIncludeSubdomains=true
+      - traefik.http.middlewares.n8n.headers.STSPreload=true
+      - traefik.http.routers.n8n.middlewares=n8n@docker
     environment:
-      - DB_TYPE=postgresdb
-      - DB_POSTGRESDB_HOST=postgres
-      - DB_POSTGRESDB_PORT=5432
-      - DB_POSTGRESDB_DATABASE=${POSTGRES_DB}
-      - DB_POSTGRESDB_USER=${POSTGRES_USER}
-      - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASSWORD}
       - N8N_HOST=${DOMAIN_NAME}
-      - N8N_PORT=443
+      - N8N_PORT=5678
       - N8N_PROTOCOL=https
       - NODE_ENV=production
       - WEBHOOK_URL=https://${DOMAIN_NAME}/
-      - N8N_DEFAULT_BINARY_DATA_MODE=filesystem
       - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
     volumes:
       - n8n_data:/home/node/.n8n
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.n8n.rule=Host(`${DOMAIN_NAME}`)
-      - traefik.http.routers.n8n.entrypoints=websecure
-      - traefik.http.routers.n8n.tls.certresolver=myresolver
-    depends_on:
-      - postgres
-      - traefik
-
-  postgres:
-    image: postgres:13
-    container_name: postgres
-    restart: unless-stopped
-    environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - /local-files:/files
 
 volumes:
+  traefik_data:
+    external: true
   n8n_data:
-  postgres_data:
-  traefik_letsencrypt:
+    external: true
 ```
 
 ---
