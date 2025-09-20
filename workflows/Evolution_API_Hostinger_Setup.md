@@ -89,28 +89,29 @@ Create the `docker-compose.yml` file:
 
 ```bash
 cat > docker-compose.yml <<'EOF'
-version: '3.9'
-
 services:
   evolution-api:
-    image: atendai/evolution-api:v2.1.1
+    image: atendai/evolution-api:latest
     container_name: evolution_api
     restart: always
     env_file: [.env]
     volumes:
       - evolution_instances:/evolution/instances
-    networks: [traefik_net]
+    networks: 
+      - n8n_network
     labels:
-      - traefik.enable=true
-      - traefik.http.routers.evo.rule=Host(`evo.elshamyn8n.shop`)
-      - traefik.http.routers.evo.entrypoints=web,websecure     # <<< SAME as n8n
-      - traefik.http.routers.evo.tls=true
-      - traefik.http.routers.evo.tls.certresolver=mytlschallenge # <<< SAME as n8n
-      - traefik.http.services.evo.loadbalancer.server.port=8080
+      - "traefik.enable=true"
+      - "traefik.http.routers.evo.rule=Host(`evo.elshamyn8n.shop`)"
+      - "traefik.http.routers.evo.tls=true"
+      - "traefik.http.routers.evo.entrypoints=web,websecure"
+      - "traefik.http.routers.evo.tls.certresolver=mytlschallenge"
+      - "traefik.http.services.evo.loadbalancer.server.port=8080"
     depends_on:
-      - postgres
-      - redis
-
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    
   postgres:
     image: postgres:15
     container_name: evolution_postgres
@@ -121,23 +122,35 @@ services:
       POSTGRES_PASSWORD: postgrespass
     volumes:
       - evolution_pg:/var/lib/postgresql/data
-    networks: [traefik_net]
-
+    networks: 
+      - n8n_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d evolution"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      
   redis:
     image: redis:7-alpine
     container_name: evolution_redis
     restart: always
-    command: ["redis-server","--appendonly","yes"]
-    networks: [traefik_net]
+    command: ["redis-server", "--appendonly", "yes"]
+    networks: 
+      - n8n_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 volumes:
   evolution_instances:
   evolution_pg:
 
 networks:
-  traefik_net:
+  n8n_network:
     external: true
-    name: root_default   # the network where your traefik+n8n stack runs
+    name: n8n_default
 EOF
 ```
 
