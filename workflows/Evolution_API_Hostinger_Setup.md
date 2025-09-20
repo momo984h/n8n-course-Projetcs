@@ -91,7 +91,7 @@ Create the `docker-compose.yml` file:
 cat > docker-compose.yml <<'EOF'
 services:
   evolution-api:
-    image: atendai/evolution-api:latest
+    image: evoapicloud/evolution-api:latest
     container_name: evolution_api
     restart: always
     env_file: [.env]
