@@ -150,7 +150,7 @@ volumes:
 networks:
   n8n_network:
     external: true
-    name: n8n-root
+    name: root-default
 EOF
 ```
 
