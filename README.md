@@ -142,7 +142,7 @@ To keep your n8n instance up-to-date with the latest features and security patch
 | **Secured WhatsApp Multi-Agent System** | Enhanced multi-agent WhatsApp system with voice, text, and image processing plus security authentication. Features specialized agents for calendar management, email handling, web search, and social media posting with authorized user verification | [📁 Download](workflows/50_WAgentEnhancement_Secured.json) | [🎥 Watch](https://www.youtube.com/watch?v=T92UuCE0Prk&list=PLZ42ZUInDWC79Bw1K_tYQhUPfFRV7fy8v&index=63) |
 | **WhatsApp Multi-Agent with Evolution API** | Advanced WhatsApp multi-agent system using Evolution API for enhanced messaging capabilities. Features improved reliability, QR code management, and seamless integration with specialized AI agents | [📁 Download](workflows/53_WAgentEnhancement_Evolution_API.json) | [🎥 Watch](https://www.youtube.com/watch?v=VIDEO_ID_PLACEHOLDER) *(Coming Soon)* |
 | **Messenger Multi-Agent Text-Image-Voice** | Comprehensive Facebook Messenger multi-agent system supporting text, voice, and image processing. Advanced AI agent integration with Facebook Graph API for seamless multimedia communication. See [📄 API Command Reference](workflows/Messenger_API_Command.md) for sending audio messages via curl. | [📁 Download](workflows/55%20-%20MessengerMultiAgent_Text_Voice_Image.json) | [🎥 Watch](https://www.youtube.com/watch?v=VIDEO_ID_PLACEHOLDER) *(Coming Soon)* |
-|| **Integrating n8n with Claude Desktop** | Advanced integration that connects your n8n workflows with Claude Desktop using Model Context Protocol (MCP). Enable Claude to directly interact with and control your n8n automation workflows through natural language commands. | [📁 Download](workflows/Claude_Desktop_Integration.json) | [🎥 Watch](https://www.youtube.com/watch?v=VIDEO_ID_PLACEHOLDER) *(Coming Soon)* |
+|| **Integrating n8n with Claude Desktop** | Advanced integration that connects your n8n workflows with Claude Desktop using Model Context Protocol (MCP). Enable Claude to directly interact with and control your n8n automation workflows through natural language commands. | [📖 Installation Guide](#claude-desktop-integration-setup) | [🎥 Watch](https://www.youtube.com/watch?v=VIDEO_ID_PLACEHOLDER) *(Coming Soon)* |
 ### 📋 **Installation Guides**
 
 | Guide | Description | Installation Guide |
@@ -284,7 +284,7 @@ Add the following configuration to your Claude Desktop settings to enable n8n in
       "command": "npx",
       "args": [
         "mcp-remote",
-        "Your_Production_URL"
+        "https://elshamyn8n.shop/mcp/emails1994"
       ],
       "env": {}
     }
@@ -292,9 +292,10 @@ Add the following configuration to your Claude Desktop settings to enable n8n in
 }
 ```
 
-#### 2. Replace Configuration Values
+#### 2. Configuration Details
 
-- Replace `Your_Production_URL` with your actual n8n production URL (e.g., `https://your-n8n-instance.com`)
+- **MCP Server Name**: `n8n` - This identifies the server in Claude Desktop
+- **Production URL**: `https://elshamyn8n.shop/mcp/emails1994` - Your n8n MCP endpoint
 - Ensure your n8n instance is publicly accessible and has proper webhook endpoints configured
 
 #### 3. Restart Claude Desktop
