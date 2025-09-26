@@ -11,7 +11,7 @@ Add the following configuration to your Claude Desktop settings to enable n8n in
       "command": "npx",
       "args": [
         "mcp-remote",
-        "https://elshamyn8n.shop/mcp/emails1994"
+        "Your_Production_URL"
       ],
       "env": {}
     }
