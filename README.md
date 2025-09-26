@@ -143,6 +143,8 @@ To keep your n8n instance up-to-date with the latest features and security patch
 | **WhatsApp Multi-Agent with Evolution API** | Advanced WhatsApp multi-agent system using Evolution API for enhanced messaging capabilities. Features improved reliability, QR code management, and seamless integration with specialized AI agents | [📁 Download](workflows/53_WAgentEnhancement_Evolution_API.json) | [🎥 Watch](https://www.youtube.com/watch?v=VIDEO_ID_PLACEHOLDER) *(Coming Soon)* |
 | **Messenger Multi-Agent Text-Image-Voice** | Comprehensive Facebook Messenger multi-agent system supporting text, voice, and image processing. Advanced AI agent integration with Facebook Graph API for seamless multimedia communication. See [📄 API Command Reference](workflows/Messenger_API_Command.md) for sending audio messages via curl. | [📁 Download](workflows/55%20-%20MessengerMultiAgent_Text_Voice_Image.json) | [🎥 Watch](https://www.youtube.com/watch?v=VIDEO_ID_PLACEHOLDER) *(Coming Soon)* |
 
+|| **Integrating n8n with Claude Desktop** | Advanced integration that connects your n8n workflows with Claude Desktop using Model Context Protocol (MCP). Enable Claude to directly interact with and control your n8n automation workflows through natural language commands. | [📁 Download](workflows/Claude_Desktop_Integration.json) | [🎥 Watch](https://www.youtube.com/watch?v=VIDEO_ID_PLACEHOLDER) *(Coming Soon)* |
+
 ### 📋 **Installation Guides**
 
 | Guide | Description | Installation Guide |
@@ -150,6 +152,8 @@ To keep your n8n instance up-to-date with the latest features and security patch
 | **WhatsApp Evolution API Setup** | Complete step-by-step guide to install and configure WhatsApp Evolution API for n8n integration. Includes Docker setup, database configuration, and n8n connection steps | [📖 Installation Guide](workflows/Evolution_API_Installation_Guide.md) |
 | **Hostinger Domain Setup** | Complete guide for configuring custom domain names with n8n on Hostinger VPS. Includes DNS configuration, SSL setup, and Docker environment updates | [📖 Setup Guide](Hostinger_Domain_Setup_Guide.md) |
 | **Evolution API with Hostinger VPS** | Complete installation guide for setting up Evolution API on Hostinger VPS with custom subdomain configuration. Includes DNS setup, SSL certificates, and API deployment | [📖 Setup Guide](workflows/Evolution_API_Hostinger_Setup.md) |
+
+|| **Claude Desktop Integration** | Complete setup guide for integrating n8n with Claude Desktop using Model Context Protocol (MCP). Includes configuration steps, MCP server setup, and workflow integration instructions | [📖 Installation Guide](#claude-desktop-integration-setup) |
 
 ## 🛠️ Technologies & Integrations
 
@@ -259,3 +263,71 @@ This educational content is provided for learning purposes. Please respect the t
 **🚀 Ready to build intelligent AI agents? Start with the Quick Start Guide above!**
 
 **Happy Automating! 🤖✨**
+
+---
+
+## Claude Desktop Integration Setup
+
+### Prerequisites
+- n8n instance running and accessible via a production URL
+- Claude Desktop installed on your system
+- Basic understanding of Model Context Protocol (MCP)
+
+### Installation Steps
+
+#### 1. Configure MCP Server in Claude Desktop
+
+Add the following configuration to your Claude Desktop settings to enable n8n integration:
+
+```json
+{
+  "mcpServers": {
+    "n8n": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "Your_Production_URL"
+      ],
+      "env": {}
+    }
+  }
+}
+```
+
+#### 2. Replace Configuration Values
+
+- Replace `Your_Production_URL` with your actual n8n production URL (e.g., `https://your-n8n-instance.com`)
+- Ensure your n8n instance is publicly accessible and has proper webhook endpoints configured
+
+#### 3. Restart Claude Desktop
+
+After adding the configuration, restart Claude Desktop to activate the MCP connection.
+
+#### 4. Verify Integration
+
+Once configured, Claude Desktop will be able to:
+- Access your n8n workflows
+- Trigger workflow executions
+- Retrieve workflow results
+- Monitor automation status
+
+### Usage Examples
+
+With the integration active, you can use natural language commands in Claude Desktop like:
+- "Run my customer onboarding workflow"
+- "Check the status of recent email automations"
+- "Create a new workflow for social media posting"
+
+### Troubleshooting
+
+**Connection Issues:**
+- Verify your n8n URL is accessible from external networks
+- Check firewall settings and port configurations
+- Ensure proper SSL certificates are configured
+
+**Authentication Problems:**
+- Verify API credentials in your n8n instance
+- Check webhook authentication settings
+- Confirm MCP server permissions
+
+For detailed workflow examples and advanced configurations, refer to the main course videos and workflow files.
