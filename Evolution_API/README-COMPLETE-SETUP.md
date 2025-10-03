@@ -693,7 +693,13 @@ docker ps | grep n8n
 0.0.0.0:5678->5678/tcp    # Your n8n port is 5678
 ```
 
-**Remember this port number!** You'll need it for webhook configuration.
+**⚠️ IMPORTANT:** 
+- **In this guide's example**, we use port **5677**
+- **YOUR port might be different** (5678, 5679, etc.)
+- **Always use YOUR actual port** in all configurations below
+- Replace any mention of `5677` or `XXXX` with your actual port number
+
+**Remember your port number!** You'll need it for all webhook configurations.
 
 ### 6.3 Install N8N (If Not Already Running)
 
@@ -747,17 +753,19 @@ If you already have n8n running, note its URL.
 ┌─────────────────────────────────────┐
 │  Your Computer (Host)               │
 │                                     │
-│  n8n: localhost:XXXX (your port)    │
+│  n8n: localhost:5677 (example)      │
 │         ↑                           │
 │         │ Must use special hostname │
 │  ┌──────┴────────────────────────┐ │
 │  │  Docker Container             │ │
 │  │  Evolution API                │ │
 │  │                               │ │
-│  │  localhost:XXXX = ❌ Wrong    │ │
-│  │  host.docker.internal:XXXX ✅ │ │
+│  │  localhost:5677 = ❌ Wrong    │ │
+│  │  host.docker.internal:5677 ✅ │ │
 │  └───────────────────────────────┘ │
 └─────────────────────────────────────┘
+
+⚠️ Replace 5677 with YOUR actual n8n port in all configurations!
 ```
 
 #### Step-by-Step Configuration:
@@ -786,9 +794,9 @@ If you already have n8n running, note its URL.
 │                                             │
 │ Webhook URL: ⚠️ CRITICAL!                   │
 │ ┌─────────────────────────────────────────┐ │
-│ │ http://host.docker.internal:XXXX/webhook/evoapi │
+│ │ http://host.docker.internal:5677/webhook/evoapi │
 │ └─────────────────────────────────────────┘ │
-│ Replace XXXX with your n8n port (e.g., 5677, 5678) │
+│ ⚠️ Replace 5677 with YOUR actual n8n port! │
 │                                             │
 │ Basic Auth User: (leave empty)              │
 │ Basic Auth Password: (leave empty)          │
@@ -824,7 +832,7 @@ If you already have n8n running, note its URL.
 
 | Setting | Recommended Value | Purpose |
 |---------|------------------|---------|
-| **Webhook URL** | `http://host.docker.internal:XXXX/webhook/evoapi` | Where to send messages (Replace XXXX with your n8n port - use `docker ps` to find it) |
+| **Webhook URL** | `http://host.docker.internal:5677/webhook/evoapi` | Where to send messages (Replace 5677 with YOUR n8n port - use `docker ps` to find it) |
 | **Trigger Type** | `all` | Trigger on every message (best for testing) |
 | **Expire in minutes** | `0` | Never expire sessions |
 | **Default Delay Message** | `0` | No artificial delay (faster responses) |
@@ -997,10 +1005,10 @@ ERROR [N8nService] ECONNREFUSED localhost:XXXX
 **Solution:** 
 You're using `localhost` in the webhook URL. Change to:
 ```
-http://host.docker.internal:XXXX/webhook/evoapi
+http://host.docker.internal:5677/webhook/evoapi
 ```
 
-**Replace `XXXX` with your actual n8n port** (find it with `docker ps | grep n8n`).
+**⚠️ Replace `5677` with YOUR actual n8n port!** (find it with `docker ps | grep n8n`).
 
 **Why?** Evolution API is inside a Docker container. From inside the container, `localhost` refers to the container itself, not your computer!
 
@@ -1016,9 +1024,9 @@ You're using an external/cloud URL for local n8n. This causes:
 
 **Change to local URL:**
 ```
-http://host.docker.internal:XXXX/webhook/evoapi
+http://host.docker.internal:5677/webhook/evoapi
 ```
-Replace `XXXX` with your n8n port (check with `docker ps | grep n8n`).
+**⚠️ Replace `5677` with YOUR n8n port!** (check with `docker ps | grep n8n`).
 
 **Performance comparison:**
 - Local URL: ~67ms ⚡
@@ -1140,14 +1148,14 @@ LOG_LEVEL=ERROR,WARN,DEBUG,INFO,LOG,VERBOSE,DARK,WEBHOOKS,WEBSOCKET
 │  │  1️⃣ Receives WhatsApp message (via Baileys)          │ │
 │  │  2️⃣ Checks if n8n bot is enabled & trigger matches   │ │
 │  │  3️⃣ Sends to n8n webhook:                            │ │
-│  │     http://host.docker.internal:XXXX/webhook/evoapi   │ │
-│  │     (XXXX = your n8n port)                            │ │
+│  │     http://host.docker.internal:5677/webhook/evoapi   │ │
+│  │     (Replace 5677 with YOUR n8n port!)                │ │
 │  │         │                                              │ │
 │  └─────────┼──────────────────────────────────────────────┘ │
 │            │                                                 │
 │            ↓ (goes to host machine)                         │
 │                                                              │
-│  📦 n8n (localhost:XXXX)                                    │
+│  📦 n8n (localhost:5677 - use your actual port)             │
 │  4️⃣ Receives webhook request                               │
 │  5️⃣ Processes workflow (AI, logic, etc.)                   │
 │  6️⃣ Responds immediately with output                       │
