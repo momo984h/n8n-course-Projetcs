@@ -12,7 +12,11 @@
 - [Common Commands](#common-commands)
 - [Troubleshooting](#troubleshooting)
 - [Performance Optimization](#performance-optimization)
-- [Next Steps](#next-steps)
+- [Security Best Practices](#security-best-practices)
+- [Understanding Evolution API + N8N Architecture](#understanding-evolution-api--n8n-architecture)
+- [Docker Networking Reference](#docker-networking-reference)
+- [Additional Resources](#additional-resources)
+- [Support](#support)
 
 ---
 
@@ -207,6 +211,258 @@ WEBHOOK_EVENTS_MESSAGES_UPSERT=true
 WEBHOOK_EVENTS_CONNECTION_UPDATE=true
 # Set others to false to improve performance
 ```
+
+### 2.3 Complete `.env` File Example
+
+Below is a complete, working `.env` configuration optimized for local development with n8n integration:
+
+<details>
+<summary><strong>Click to expand complete .env file</strong></summary>
+
+```ini
+# ===========================================
+# EVOLUTION API - COMPLETE CONFIGURATION
+# ===========================================
+
+# ===========================================
+# SERVER CONFIGURATION
+# ===========================================
+SERVER_NAME=evolution
+SERVER_TYPE=http
+SERVER_PORT=8080
+SERVER_URL=http://localhost:8080
+SERVER_DISABLE_DOCS=false
+SERVER_DISABLE_MANAGER=false
+
+# ===========================================
+# CORS
+# ===========================================
+CORS_ORIGIN=*
+CORS_METHODS=POST,GET,PUT,DELETE
+CORS_CREDENTIALS=true
+
+# ===========================================
+# AUTHENTICATION (⚠️ CHANGE THIS!)
+# ===========================================
+AUTHENTICATION_API_KEY=CHANGE_THIS_TO_A_SECURE_RANDOM_KEY
+AUTHENTICATION_EXPOSE_IN_FETCH_INSTANCES=false
+
+# ===========================================
+# DATABASE - POSTGRESQL (FOR DOCKER COMPOSE)
+# ===========================================
+DATABASE_PROVIDER=postgresql
+DATABASE_CONNECTION_URI=postgresql://postgres:evolution_password@evolution-postgres:5432/evolution_db
+DATABASE_CONNECTION_CLIENT_NAME=evolution
+
+# PostgreSQL Environment Variables (REQUIRED by docker-compose.yaml)
+POSTGRES_DATABASE=evolution_db
+POSTGRES_USERNAME=postgres
+POSTGRES_PASSWORD=evolution_password
+
+# Database Save Settings
+DATABASE_SAVE_DATA_INSTANCE=true
+DATABASE_SAVE_DATA_NEW_MESSAGE=true
+DATABASE_SAVE_MESSAGE_UPDATE=true
+DATABASE_SAVE_DATA_CONTACTS=true
+DATABASE_SAVE_DATA_CHATS=true
+DATABASE_SAVE_DATA_LABELS=true
+DATABASE_SAVE_DATA_HISTORIC=true
+DATABASE_SAVE_IS_ON_WHATSAPP=true
+DATABASE_SAVE_IS_ON_WHATSAPP_DAYS=7
+DATABASE_DELETE_MESSAGE=false
+
+# ===========================================
+# REDIS CACHE (FOR DOCKER COMPOSE)
+# ===========================================
+CACHE_REDIS_ENABLED=true
+CACHE_REDIS_URI=redis://evolution-redis:6379
+CACHE_REDIS_PREFIX_KEY=evolution
+CACHE_REDIS_TTL=604800
+CACHE_REDIS_SAVE_INSTANCES=false
+
+# Local cache fallback
+CACHE_LOCAL_ENABLED=false
+
+# ===========================================
+# LOGS (Optimized for Performance)
+# ===========================================
+LOG_LEVEL=ERROR,WARN,INFO
+LOG_COLOR=true
+LOG_BAILEYS=error
+
+# ===========================================
+# EVENT EMITTER
+# ===========================================
+EVENT_EMITTER_MAX_LISTENERS=50
+
+# ===========================================
+# INSTANCES
+# ===========================================
+DEL_INSTANCE=false
+DEL_TEMP_INSTANCES=true
+
+# ===========================================
+# LANGUAGE
+# ===========================================
+LANGUAGE=en
+
+# ===========================================
+# TELEMETRY
+# ===========================================
+TELEMETRY_ENABLED=true
+
+# ===========================================
+# WEBHOOK
+# ===========================================
+WEBHOOK_GLOBAL_URL=
+WEBHOOK_GLOBAL_ENABLED=false
+WEBHOOK_GLOBAL_WEBHOOK_BY_EVENTS=false
+
+# Webhook Events (Set to true only for events you need)
+WEBHOOK_EVENTS_APPLICATION_STARTUP=false
+WEBHOOK_EVENTS_INSTANCE_CREATE=false
+WEBHOOK_EVENTS_INSTANCE_DELETE=false
+WEBHOOK_EVENTS_QRCODE_UPDATED=true
+WEBHOOK_EVENTS_MESSAGES_SET=false
+WEBHOOK_EVENTS_MESSAGES_UPSERT=true
+WEBHOOK_EVENTS_MESSAGES_EDITED=false
+WEBHOOK_EVENTS_MESSAGES_UPDATE=true
+WEBHOOK_EVENTS_MESSAGES_DELETE=false
+WEBHOOK_EVENTS_SEND_MESSAGE=true
+WEBHOOK_EVENTS_SEND_MESSAGE_UPDATE=false
+WEBHOOK_EVENTS_CONTACTS_SET=false
+WEBHOOK_EVENTS_CONTACTS_UPDATE=false
+WEBHOOK_EVENTS_CONTACTS_UPSERT=false
+WEBHOOK_EVENTS_PRESENCE_UPDATE=false
+WEBHOOK_EVENTS_CHATS_SET=false
+WEBHOOK_EVENTS_CHATS_UPDATE=false
+WEBHOOK_EVENTS_CHATS_UPSERT=false
+WEBHOOK_EVENTS_CHATS_DELETE=false
+WEBHOOK_EVENTS_CONNECTION_UPDATE=true
+WEBHOOK_EVENTS_LABELS_EDIT=false
+WEBHOOK_EVENTS_LABELS_ASSOCIATION=false
+WEBHOOK_EVENTS_GROUPS_UPSERT=false
+WEBHOOK_EVENTS_GROUPS_UPDATE=false
+WEBHOOK_EVENTS_GROUP_PARTICIPANTS_UPDATE=false
+WEBHOOK_EVENTS_CALL=false
+WEBHOOK_EVENTS_TYPEBOT_START=false
+WEBHOOK_EVENTS_TYPEBOT_CHANGE_STATUS=false
+WEBHOOK_EVENTS_ERRORS=false
+WEBHOOK_EVENTS_ERRORS_WEBHOOK=
+
+# Webhook Request Settings
+WEBHOOK_REQUEST_TIMEOUT_MS=30000
+WEBHOOK_RETRY_MAX_ATTEMPTS=10
+WEBHOOK_RETRY_INITIAL_DELAY_SECONDS=5
+WEBHOOK_RETRY_USE_EXPONENTIAL_BACKOFF=true
+WEBHOOK_RETRY_MAX_DELAY_SECONDS=300
+WEBHOOK_RETRY_JITTER_FACTOR=0.2
+WEBHOOK_RETRY_NON_RETRYABLE_STATUS_CODES=400,401,403,404,422
+
+# ===========================================
+# WEBSOCKET
+# ===========================================
+WEBSOCKET_ENABLED=false
+WEBSOCKET_GLOBAL_EVENTS=false
+
+# ===========================================
+# RABBITMQ (Disabled for basic setup)
+# ===========================================
+RABBITMQ_ENABLED=false
+
+# ===========================================
+# SQS (Disabled for basic setup)
+# ===========================================
+SQS_ENABLED=false
+
+# ===========================================
+# KAFKA (Disabled for basic setup)
+# ===========================================
+KAFKA_ENABLED=false
+
+# ===========================================
+# PUSHER (Disabled for basic setup)
+# ===========================================
+PUSHER_ENABLED=false
+
+# ===========================================
+# WHATSAPP BUSINESS API
+# ===========================================
+WA_BUSINESS_TOKEN_WEBHOOK=evolution
+WA_BUSINESS_URL=https://graph.facebook.com
+WA_BUSINESS_VERSION=v20.0
+WA_BUSINESS_LANGUAGE=en_US
+
+# ===========================================
+# SESSION CONFIGURATION
+# ===========================================
+CONFIG_SESSION_PHONE_CLIENT=Evolution API
+CONFIG_SESSION_PHONE_NAME=Chrome
+
+# ===========================================
+# QR CODE
+# ===========================================
+QRCODE_LIMIT=30
+QRCODE_COLOR=#198754
+
+# ===========================================
+# INTEGRATIONS - ENABLE/DISABLE
+# ===========================================
+# ⚠️ IMPORTANT: Set to true to enable n8n integration!
+N8N_ENABLED=true
+
+# Other integrations (disabled by default)
+TYPEBOT_ENABLED=false
+CHATWOOT_ENABLED=false
+OPENAI_ENABLED=false
+DIFY_ENABLED=false
+EVOAI_ENABLED=false
+FLOWISE_ENABLED=false
+
+# ===========================================
+# S3 / MINIO STORAGE (Disabled for basic setup)
+# ===========================================
+S3_ENABLED=false
+
+# ===========================================
+# METRICS (Disabled for basic setup)
+# ===========================================
+PROMETHEUS_METRICS=false
+
+# ===========================================
+# SSL CONFIGURATION (For production only)
+# ===========================================
+SSL_CONF_PRIVKEY=/path/to/cert.key
+SSL_CONF_FULLCHAIN=/path/to/cert.crt
+
+# ===========================================
+# PROXY CONFIGURATION (Optional)
+# ===========================================
+PROXY_HOST=
+PROXY_PORT=
+PROXY_PROTOCOL=
+PROXY_USERNAME=
+PROXY_PASSWORD=
+
+# ===========================================
+# AUDIO CONVERTER API (Optional)
+# ===========================================
+API_AUDIO_CONVERTER=
+API_AUDIO_CONVERTER_KEY=
+```
+
+</details>
+
+**💡 Key Points About This Configuration:**
+
+1. ✅ **N8N_ENABLED=true** - Required for n8n integration
+2. ✅ **Service names** used for database and Redis (not localhost)
+3. ✅ **Reduced logging** for better performance
+4. ✅ **Minimal webhooks** enabled for efficiency
+5. ✅ **PostgreSQL credentials** match between URI and separate variables
+6. ⚠️ **API key** MUST be changed before deployment
+
+**To use this:** Copy the entire content and replace your `.env` file, then update the API key!
 
 ---
 
@@ -564,7 +820,7 @@ If you already have n8n running, note its URL.
 
 | Issue | Symptom | Solution |
 |-------|---------|----------|
-| **502 Bad Gateway** | Messages not reaching n8n, Cloudflare errors in logs | Using wrong URL - must use `host.docker.internal` not `localhost` |
+| **502 Bad Gateway** | Messages not reaching n8n, 502 errors in logs | Using wrong URL - must use `host.docker.internal` not `localhost` |
 | **Connection Refused** | `ECONNREFUSED` errors in logs | Wrong hostname - use `host.docker.internal:5678` |
 | **Messages not triggering bot** | No `[N8nService]` logs | Check trigger settings, ensure `triggerType: all` |
 | **N8N disabled error** | Can't create n8n bot in Manager | Set `N8N_ENABLED=true` in `.env` |
@@ -722,10 +978,10 @@ http://host.docker.internal:5678/webhook/evoapi
 
 ### Problem: N8N 502 Bad Gateway
 
-**Error:** Cloudflare 502 errors in logs
+**Error:** 502 Bad Gateway errors in logs
 
 **Solution:**
-You're using a Cloudflare Tunnel URL for local n8n. This causes:
+You're using an external/cloud URL for local n8n. This causes:
 - Slow responses (1+ second)
 - Intermittent 502 errors
 - Unreliable delivery
@@ -737,7 +993,7 @@ http://host.docker.internal:5678/webhook/evoapi
 
 **Performance comparison:**
 - Local URL: ~67ms ⚡
-- Cloudflare Tunnel: ~1000ms + 502 errors 🐌
+- External/Cloud URL: ~1000ms + 502 errors 🐌
 
 ### Problem: Manager UI Slow to Load
 
@@ -822,53 +1078,8 @@ LOG_LEVEL=ERROR,WARN,DEBUG,INFO,LOG,VERBOSE,DARK,WEBHOOKS,WEBSOCKET
 | Setup | Response Time | Reliability |
 |-------|---------------|-------------|
 | **Local Evolution + Local N8N** | 100-500ms | 99.9% |
-| **Local Evolution + Cloud N8N (Cloudflare)** | 1-10 seconds | 60-80% (502 errors) |
-| **Cloud Evolution + Cloud N8N (same region)** | 200-800ms | 95%+ |
-
----
-
-## Next Steps
-
-### 1. Create Your First WhatsApp Instance
-
-1. Visit http://localhost:8080/manager
-2. Click "Create Instance"
-3. Enter an instance name (e.g., `my-whatsapp`)
-4. Scan the QR code with WhatsApp on your phone
-5. Wait for connection (status: "open")
-
-### 2. Test Sending Messages
-
-```bash
-curl -X POST http://localhost:8080/message/sendText/YOUR_INSTANCE_NAME \
-  -H "apikey: YOUR_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "number": "5511999999999",
-    "text": "Hello from Evolution API!"
-  }'
-```
-
-### 3. Explore Other Integrations
-
-Evolution API supports multiple integrations. Enable them in `.env`:
-
-```ini
-TYPEBOT_ENABLED=true    # Conversational chatbots
-CHATWOOT_ENABLED=true   # Customer support platform
-OPENAI_ENABLED=true     # AI-powered responses
-DIFY_ENABLED=true       # AI workflows
-N8N_ENABLED=true        # Custom n8n workflows
-```
-
-Each integration has its own configuration section in the Manager UI.
-
-### 4. Read the Documentation
-
-- **Official Docs:** https://doc.evolution-api.com
-- **Swagger UI:** http://localhost:8080/docs
-- **GitHub:** https://github.com/EvolutionAPI/evolution-api
-- **Discord Community:** https://evolution-api.com/discord
+| **Local Evolution + Remote N8N** | 1-10 seconds | 60-80% (may have errors) |
+| **Remote Evolution + Remote N8N (same region)** | 200-800ms | 95%+ |
 
 ---
 
@@ -924,59 +1135,6 @@ Each integration has its own configuration section in the Manager UI.
 │  ⏱️ Total time: ~100-500ms (with optimized settings)       │
 └──────────────────────────────────────────────────────────────┘
 ```
-
----
-
-## FAQ (Frequently Asked Questions)
-
-### Q1: Why can't I use `localhost` for n8n webhook?
-
-**A:** Evolution API runs inside a Docker container. From inside the container:
-- `localhost` = the container itself
-- `host.docker.internal` = your computer (where n8n is running)
-
-### Q2: Can I use `localhost` in my browser?
-
-**A:** YES! When YOU access URLs from your browser on your computer, `localhost` works fine because your browser is NOT inside a Docker container.
-
-### Q3: What if my n8n is on a different server?
-
-**A:** Use the full URL:
-```
-http://your-n8n-server.com/webhook/evoapi
-```
-
-No need for `host.docker.internal` - that's only for services on your local computer.
-
-### Q4: Why use Cloudflare Tunnel if it causes problems?
-
-**A:** Cloudflare Tunnel is useful when:
-- External services (not on your computer) need to call n8n
-- You want n8n accessible from anywhere
-
-But for **local Evolution API → local n8n**, always use:
-```
-http://host.docker.internal:5678/webhook/evoapi
-```
-
-You can keep Cloudflare Tunnel for other purposes!
-
-### Q5: My n8n port is 5677, not 5678. What do I use?
-
-**A:** Use your actual port:
-```
-http://host.docker.internal:5677/webhook/evoapi
-```
-
-Check your n8n port with: `docker ps | grep n8n`
-
-### Q6: Can I run both PostgreSQL and MySQL?
-
-**A:** No, choose ONE database provider:
-- `DATABASE_PROVIDER=postgresql` (recommended)
-- OR `DATABASE_PROVIDER=mysql`
-
-Then configure the connection URI accordingly.
 
 ---
 
@@ -1040,24 +1198,6 @@ If you encounter any issues:
 
 Evolution API is licensed under Apache License 2.0.  
 © 2025 Evolution API
-
----
-
-## Summary Checklist
-
-Before asking for help, verify:
-
-- [ ] `.env` file created from `env.example`
-- [ ] Database URI uses `evolution-postgres` (not `localhost`)
-- [ ] Redis URI uses `evolution-redis` (not `localhost`)
-- [ ] API key changed from default
-- [ ] `N8N_ENABLED=true` in `.env`
-- [ ] `docker-compose.yaml` has NO `dokploy-network`
-- [ ] All 3 containers running: `docker-compose ps`
-- [ ] Manager accessible: http://localhost:8080/manager
-- [ ] N8N webhook URL uses `host.docker.internal` (if n8n is local)
-- [ ] N8N workflow is **active** in n8n UI
-- [ ] N8N bot is **enabled** in Evolution API Manager
 
 ---
 
