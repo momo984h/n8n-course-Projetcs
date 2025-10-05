@@ -1,0 +1,1666 @@
+{
+  "name": "61- Free Secretery_MCP",
+  "nodes": [
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    },
+                    "id": "35588a02-6475-400d-b869-da05d7ed0f3a"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Text"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "83b9e800-99d0-4e31-8032-ae81aebe86d1",
+                    "leftValue": "={{ $json.message.voice }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "object",
+                      "operation": "exists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Audio"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "3ab7184b-65ec-4ca5-a250-667667999220",
+                    "leftValue": "={{ $json.message.photo[0] }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "object",
+                      "operation": "exists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Image"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -288,
+        -128
+      ],
+      "id": "107f227c-6975-4b4e-86e4-4c389ba4cbc7",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2f35809b-3889-4ef7-a8d5-a4d934842631",
+              "name": "Text",
+              "value": "={{ $json.message.text }}",
+              "type": "string"
+            },
+            {
+              "id": "20b39541-487e-4ce9-9596-67ec3978cc0e",
+              "name": "message.chat.id",
+              "value": "ID",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        256,
+        -288
+      ],
+      "id": "5db75615-017f-4b2b-a108-a92257018cfc",
+      "name": "Text"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2f35809b-3889-4ef7-a8d5-a4d934842631",
+              "name": "Text",
+              "value": "={{ $json.text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        544,
+        -112
+      ],
+      "id": "fce071c8-d2a1-44cc-ba13-83593326f7b6",
+      "name": "Voice"
+    },
+    {
+      "parameters": {
+        "content": "# Text\n",
+        "height": 176,
+        "width": 1024,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -80,
+        -320
+      ],
+      "typeVersion": 1,
+      "id": "ea7ee2ee-5cf2-4719-bc3b-0832b8c55538",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "# Voice\n",
+        "height": 176,
+        "width": 1024,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -80,
+        -128
+      ],
+      "typeVersion": 1,
+      "id": "7a7575cb-b586-41dd-9e02-d0f4c2f9f824",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "# Image\n",
+        "height": 272,
+        "width": 1024,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -80,
+        80
+      ],
+      "typeVersion": 1,
+      "id": "3cebaeef-92ff-47a2-9742-9c9360868f68",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "# Inputs\n",
+        "height": 720,
+        "width": 1520
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -496,
+        -336
+      ],
+      "typeVersion": 1,
+      "id": "a7c9908d-bfae-4ce7-9b5a-bcca0826734c",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.Text }}",
+        "options": {
+          "systemMessage": "=## Overview\nYou are the Parent Orchestrator Agent. Your job is to route and coordinate incoming WhatsApp messages (text, voice, image) to the correct sub-agent or processing tool. The current date and time is {{ $now.toString() }}\n\n## Tools\n- Think: Use to evaluate context and decide routing logic\n- E-Mails Agent: Use for handling email-related queries, sending, replying, or managing inbox\n- Calendar Agent: Use for scheduling, retrieving, updating, or deleting calendar events\n- Web Search Agent: Use to fetch information from the internet (Google Search, Wikipedia, Hacker News)\n- Social Media Agent: Use to create or manage posts on Twitter/X\n\n## Rules\n- Route text, voice, or image inputs based on intent and context\n- Use Think tool when unsure which agent to delegate to\n- Always return the response in the correct WhatsApp output format (text or audio)\n- Keep responses concise and aligned with the casual tone of WhatsApp\n- Confirm completion of actions (emails sent, events scheduled, tweets posted, etc.)\n\n## Instructions\n1) Receive processed input (transcribed text, analyzed image, or raw message)\n2) Decide best-fit agent using Think\n3) Send the task to chosen sub-agent (E-Mails, Calendar, Web Search, Social Media)\n4) Summarize the result and return to WhatsApp as text or audio\n\n## Examples\n1)\nInput: \"What’s on my calendar tomorrow?\"\n- Action: Use Calendar Agent to check tomorrow’s events\n- Output: \"You have 2 events tomorrow: 10 AM – Project Review, 2 PM – Client Call.\"\n\n2)\nInput: Voice message: \"Send an email to Sarah about the meeting.\"\n- Action: Use E-Mails Agent to draft and send email\n- Output: \"Email sent to Sarah: Subject – Meeting Update...\"\n\n3)\nInput: \"Search the latest AI news.\"\n- Action: Use Web Search Agent\n- Output: \"Latest AI news from Hacker News: OpenAI released a new API feature...\"\n\n4)\nInput: \"Post on Twitter: Excited about our new product launch!\"\n- Action: Use Social Media Agent\n- Output: \"Tweet posted: 'Excited about our new product launch!'\"\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        1296,
+        -240
+      ],
+      "id": "da497ca6-5672-4c1f-83a2-57f8ca316083",
+      "name": "Orchestrator Agent",
+      "retryOnFail": false
+    },
+    {
+      "parameters": {
+        "content": "# Text\n\n",
+        "height": 176,
+        "width": 576,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1936,
+        -176
+      ],
+      "typeVersion": 1,
+      "id": "fc5f7d60-39df-4369-8f21-3e8209bb4792",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "# Text\n\n",
+        "height": 176,
+        "width": 576,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1936,
+        32
+      ],
+      "typeVersion": 1,
+      "id": "15c462e0-0e10-4965-a613-17a04c08c64a",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "# Output\n",
+        "height": 720,
+        "width": 800
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1792,
+        -336
+      ],
+      "typeVersion": 1,
+      "id": "78ba17d7-748c-4f44-b31d-0cfa783f678d",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1.1,
+      "position": [
+        1584,
+        80
+      ],
+      "id": "48714289-08d4-4096-a58f-c4315b0151ec",
+      "name": "Think"
+    },
+    {
+      "parameters": {
+        "content": "# Orchestrator Agent\n\n",
+        "height": 720,
+        "width": 736,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1040,
+        -336
+      ],
+      "typeVersion": 1,
+      "id": "94ebcf1b-ff70-4ec7-9824-6c7dc9f22b43",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolSerpApi",
+      "typeVersion": 1,
+      "position": [
+        832,
+        1280
+      ],
+      "id": "39f56335-9c62-49f5-8b7f-97beb17ab769",
+      "name": "Google Search",
+      "credentials": {
+        "serpApi": {
+          "id": "uwZRs8ik4sfCAXVX",
+          "name": "SerpAPI account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolWikipedia",
+      "typeVersion": 1,
+      "position": [
+        688,
+        1280
+      ],
+      "id": "a801d072-322a-4e67-b038-277abe10a098",
+      "name": "Wikipedia"
+    },
+    {
+      "parameters": {
+        "articleId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Article_ID', ``, 'string') }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.hackerNewsTool",
+      "typeVersion": 1,
+      "position": [
+        544,
+        1280
+      ],
+      "id": "0fd86752-42d7-48a3-8163-b81daa3b77e8",
+      "name": "Get an article in Hacker News"
+    },
+    {
+      "parameters": {
+        "content": "# Web Search Agent\n\n",
+        "height": 496,
+        "width": 1520,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -496,
+        960
+      ],
+      "typeVersion": 1,
+      "id": "63f0025c-5154-4b72-8272-1b88854fe2c4",
+      "name": "Sticky Note8"
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "alyfar601@gmail.com",
+          "mode": "list",
+          "cachedResultName": "alyfar601@gmail.com"
+        },
+        "start": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Start', ``, 'string') }}",
+        "end": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('End', ``, 'string') }}",
+        "useDefaultReminders": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Use_Default_Reminders', ``, 'boolean') }}",
+        "additionalFields": {
+          "attendees": [],
+          "description": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Description', ``, 'string') }}",
+          "summary": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Summary', ``, 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        1680,
+        720
+      ],
+      "id": "fd2fe84f-9170-4cba-a8ea-32c09e3f7629",
+      "name": "Create an event",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "29XFrFpnzA2v95de",
+          "name": "Google Calendar account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "calendar": {
+          "__rl": true,
+          "value": "alyfar601@gmail.com",
+          "mode": "list",
+          "cachedResultName": "alyfar601@gmail.com"
+        },
+        "eventId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Event_ID', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        1920,
+        720
+      ],
+      "id": "e61d987b-cb1d-4a57-b818-ade9c5183642",
+      "name": "Delete an event",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "29XFrFpnzA2v95de",
+          "name": "Google Calendar account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "alyfar601@gmail.com",
+          "mode": "list",
+          "cachedResultName": "alyfar601@gmail.com"
+        },
+        "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}",
+        "timeMin": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('After', ``, 'string') }}",
+        "timeMax": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Before', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        2112,
+        720
+      ],
+      "id": "102051dc-8017-4cdd-860f-63ebf964b761",
+      "name": "Get Many Events",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "29XFrFpnzA2v95de",
+          "name": "Google Calendar account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "calendar": {
+          "__rl": true,
+          "value": "alyfar601@gmail.com",
+          "mode": "list",
+          "cachedResultName": "alyfar601@gmail.com"
+        },
+        "eventId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Event_ID', ``, 'string') }}",
+        "updateFields": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        2320,
+        720
+      ],
+      "id": "c8c6b1af-3b9b-4e47-abc9-e9206771a5ea",
+      "name": "Update Events",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "29XFrFpnzA2v95de",
+          "name": "Google Calendar account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('To', ``, 'string') }}",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}",
+        "emailType": "text",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        112,
+        752
+      ],
+      "id": "9966e360-d649-415a-a50e-7deb81cc0b16",
+      "name": "Send a message",
+      "webhookId": "bb7a5919-6824-4026-8720-4dc83b7f247e",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "pDGXm45Y1qC2hmUr",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}",
+        "simple": false,
+        "filters": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        272,
+        752
+      ],
+      "id": "63f759d6-31e5-4b48-ac9b-161c0022f3da",
+      "name": "Get many e-mails",
+      "webhookId": "bb7a5919-6824-4026-8720-4dc83b7f247e",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "pDGXm45Y1qC2hmUr",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "markAsRead",
+        "messageId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message_ID', ``, 'string') }}"
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        480,
+        752
+      ],
+      "id": "996c9338-0336-4676-8aa5-52c4a9999a49",
+      "name": "Mark as read",
+      "webhookId": "bb7a5919-6824-4026-8720-4dc83b7f247e",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "pDGXm45Y1qC2hmUr",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "markAsUnread",
+        "messageId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message_ID', ``, 'string') }}"
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        688,
+        752
+      ],
+      "id": "ce7e917e-c117-4880-a5e7-6cb905560810",
+      "name": "Mark as unread",
+      "webhookId": "bb7a5919-6824-4026-8720-4dc83b7f247e",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "pDGXm45Y1qC2hmUr",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "reply",
+        "messageId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message_ID', ``, 'string') }}",
+        "emailType": "text",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        896,
+        752
+      ],
+      "id": "35723d3c-1949-4057-a972-2e6bb24724cb",
+      "name": "Reply to e-mail",
+      "webhookId": "bb7a5919-6824-4026-8720-4dc83b7f247e",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "pDGXm45Y1qC2hmUr",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "# E-Mail Agent\n\n\n",
+        "height": 496,
+        "width": 1520,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -496,
+        416
+      ],
+      "typeVersion": 1,
+      "id": "658cef5e-07f6-47b3-9af9-889cace33533",
+      "name": "Sticky Note9"
+    },
+    {
+      "parameters": {
+        "content": "# Calender Agent\n\n\n",
+        "height": 496,
+        "width": 1552,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1040,
+        416
+      ],
+      "typeVersion": 1,
+      "id": "5a7aa643-5641-4d34-9200-0fb18a187272",
+      "name": "Sticky Note10"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "contextWindowLength": 50
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        1232,
+        64
+      ],
+      "id": "ecdd905e-2cc1-4c56-a566-67b9f178eace",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "path": "emails"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "position": [
+        336,
+        496
+      ],
+      "id": "fe775fe1-4361-4471-bb9f-a2b6c0a32f26",
+      "name": "MCP Server Trigger",
+      "webhookId": "7aebc8f8-e779-4eed-8874-f9497baac92c"
+    },
+    {
+      "parameters": {
+        "path": "calendar"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "position": [
+        1808,
+        496
+      ],
+      "id": "50c80752-0bba-44f2-ab40-1619263f9c7f",
+      "name": "MCP Server Trigger1",
+      "webhookId": "7aebc8f8-e779-4eed-8874-f9497baac92c"
+    },
+    {
+      "parameters": {
+        "path": "websearch"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "position": [
+        512,
+        1024
+      ],
+      "id": "c90fa6d5-2d39-410b-ac2b-c1e8bd48ef79",
+      "name": "MCP Server Trigger2",
+      "webhookId": "7aebc8f8-e779-4eed-8874-f9497baac92c"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "contextWindowLength": 50
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -224,
+        752
+      ],
+      "id": "94b466c3-e5eb-4feb-a79a-bf5185d0078b",
+      "name": "Simple Memory1"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "contextWindowLength": 50
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        1248,
+        736
+      ],
+      "id": "bd80f5dd-f187-4f71-8026-678a1783feb4",
+      "name": "Simple Memory2"
+    },
+    {
+      "parameters": {
+        "endpointUrl": "https://elshamyn8n.shop/mcp/emails",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.1,
+      "position": [
+        -48,
+        752
+      ],
+      "id": "21c7fbdb-2015-4604-a35e-a22785daaa3d",
+      "name": "MCP Email Client"
+    },
+    {
+      "parameters": {
+        "endpointUrl": "https://elshamyn8n.shop/mcp/calendar",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.1,
+      "position": [
+        1424,
+        736
+      ],
+      "id": "b910a6b4-0a52-4d69-a60f-0d879d18bcd3",
+      "name": "MCP Calendar Client"
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -464,
+        -112
+      ],
+      "id": "43936e79-467a-416a-bbdb-96f22673018c",
+      "name": "Telegram Trigger",
+      "webhookId": "29baba86-48b1-4f93-af3b-2a96e7cd47b1",
+      "credentials": {
+        "telegramApi": {
+          "id": "v17BPBusJ2OFNQI3",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2128,
+        -144
+      ],
+      "id": "4b9958e9-e8a1-4477-9d52-33302d8d1238",
+      "name": "Send a text message",
+      "webhookId": "e4bed5dc-7fed-4211-992c-df8039755f26",
+      "credentials": {
+        "telegramApi": {
+          "id": "v17BPBusJ2OFNQI3",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "sendAudio",
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "binaryData": true,
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2272,
+        64
+      ],
+      "id": "f1518b3d-f5f3-416a-84c0-0bba6af0a194",
+      "name": "Send an audio file",
+      "webhookId": "f395ebe1-6b08-4000-ad8a-cec809b89e39",
+      "credentials": {
+        "telegramApi": {
+          "id": "v17BPBusJ2OFNQI3",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "fileId": "={{ $json.message.photo[2].file_id }}",
+        "additionalFields": {
+          "mimeType": "image/jpeg"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        144,
+        160
+      ],
+      "id": "6b07f007-b23a-4196-9fc9-f0f2417bed56",
+      "name": "Get an Image",
+      "webhookId": "5f1ee6fd-86f9-431d-8a90-1dc0e9c9eb65",
+      "credentials": {
+        "telegramApi": {
+          "id": "v17BPBusJ2OFNQI3",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "fileId": "={{ $json.message.voice.file_id }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        48,
+        -112
+      ],
+      "id": "db151066-4207-4c53-a3ad-b5c06b3ff9ee",
+      "name": "Get a Voice",
+      "webhookId": "5f1ee6fd-86f9-431d-8a90-1dc0e9c9eb65",
+      "credentials": {
+        "telegramApi": {
+          "id": "v17BPBusJ2OFNQI3",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "contextWindowLength": 50
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -96,
+        1264
+      ],
+      "id": "30d0ef6e-5f1f-43d7-a30f-73bff277c9b5",
+      "name": "Simple Memory3"
+    },
+    {
+      "parameters": {
+        "endpointUrl": "https://elshamyn8n.shop/mcp/websearch",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.1,
+      "position": [
+        80,
+        1264
+      ],
+      "id": "1d7b84d8-7da6-4570-9b54-1313573c2e3e",
+      "name": "MCP Search Client"
+    },
+    {
+      "parameters": {
+        "toolDescription": "AI Agent can Call this tool if you want to do something with calendar.",
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Prompt__User_Message_', ``, 'string') }}",
+        "options": {
+          "systemMessage": "=You are a helpful assistant, The current date and time is {{ $now.toString() }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "typeVersion": 2.2,
+      "position": [
+        1264,
+        512
+      ],
+      "id": "9d468890-cae1-4c14-95b7-437042b94f08",
+      "name": "Calendar Agent"
+    },
+    {
+      "parameters": {
+        "toolDescription": "AI Agent can Call this tool if you want to do something with E-mails.",
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Prompt__User_Message_', ``, 'string') }}",
+        "options": {
+          "systemMessage": "=You are a helpful assistant, The current date and time is {{ $now.toString() }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "typeVersion": 2.2,
+      "position": [
+        -208,
+        528
+      ],
+      "id": "8086cff3-f64a-49db-80e8-c95096167ab3",
+      "name": "E-Mail Agent"
+    },
+    {
+      "parameters": {
+        "toolDescription": "AI Agent can Call this tool if you want to do something with E-mails.",
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Prompt__User_Message_', ``, 'string') }}",
+        "options": {
+          "systemMessage": "You are a helpful assistant, The current date and time is {{ $now.toString() }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "typeVersion": 2.2,
+      "position": [
+        -80,
+        1040
+      ],
+      "id": "5ec4da28-d8c3-4bf6-9152-d34a7dfa9694",
+      "name": "Web Search Agent",
+      "notesInFlow": false,
+      "notes": "efdre"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "48ce1a29-e1a9-45b2-874b-e83fbf804787",
+              "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1600,
+        -240
+      ],
+      "id": "ae2be522-5bfe-4d28-8c0e-71c7755c4ab9",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "02b044cf-399d-4d80-b0b5-e7102670bdc5",
+              "name": "Text",
+              "value": "={{ $json.content }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        576,
+        160
+      ],
+      "id": "8b12c08c-01f5-4148-8470-fcb108411efd",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "inputType": "base64",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        352,
+        160
+      ],
+      "id": "37ed3ffe-1697-47a1-b28b-772c09727a71",
+      "name": "Analyze image",
+      "credentials": {
+        "openAiApi": {
+          "id": "yfRTXB9atgEol0Xt",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "operation": "transcribe",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        256,
+        -112
+      ],
+      "id": "b32c09e6-af45-4802-b543-7a961404f61a",
+      "name": "Transcribe a recording",
+      "credentials": {
+        "openAiApi": {
+          "id": "yfRTXB9atgEol0Xt",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "input": "={{ $json.output }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        2048,
+        64
+      ],
+      "id": "5f94a2b4-be65-4e3c-a04e-c8dee3b91c2d",
+      "name": "Generate audio",
+      "credentials": {
+        "openAiApi": {
+          "id": "yfRTXB9atgEol0Xt",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5",
+          "mode": "list",
+          "cachedResultName": "gpt-5"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1120,
+        -48
+      ],
+      "id": "de431c78-aa17-49fb-bd00-24f475636fb7",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "yfRTXB9atgEol0Xt",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-5-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1104,
+        720
+      ],
+      "id": "3541fdc1-9388-467c-a90b-f5152ab54957",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "yfRTXB9atgEol0Xt",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-5-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -416,
+        752
+      ],
+      "id": "e6314787-d6fd-42e3-9427-12354d9a1986",
+      "name": "OpenAI Chat Model2",
+      "credentials": {
+        "openAiApi": {
+          "id": "yfRTXB9atgEol0Xt",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-5-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -272,
+        1264
+      ],
+      "id": "d5b44c8e-c8b7-4cb4-9d3b-fb97b26d7ab0",
+      "name": "OpenAI Chat Model3",
+      "credentials": {
+        "openAiApi": {
+          "id": "yfRTXB9atgEol0Xt",
+          "name": "OpenAi account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Telegram Trigger": [
+      {
+        "json": {
+          "update_id": 298056008,
+          "message": {
+            "message_id": 75,
+            "from": {
+              "id": 6169020576,
+              "is_bot": false,
+              "first_name": "Mohamed",
+              "last_name": "Elshamy",
+              "username": "melshamy1",
+              "language_code": "en"
+            },
+            "chat": {
+              "id": 6169020576,
+              "first_name": "Mohamed",
+              "last_name": "Elshamy",
+              "username": "melshamy1",
+              "type": "private"
+            },
+            "date": 1759620422,
+            "voice": {
+              "duration": 2,
+              "mime_type": "audio/ogg",
+              "file_id": "AwACAgQAAxkBAANLaOGtRYOknTLK9lytsZtHVMA6BtUAAsweAAKWSwlTQ6B6G7TYkvA2BA",
+              "file_unique_id": "AgADzB4AApZLCVM",
+              "file_size": 42865
+            }
+          }
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Text",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get a Voice",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get an Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text": {
+      "main": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Voice": {
+      "main": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Orchestrator Agent": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Search": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger2",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wikipedia": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger2",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get an article in Hacker News": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger2",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create an event": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete an event": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Many Events": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Events": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many e-mails": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark as read": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark as unread": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reply to e-mail": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory1": {
+      "ai_memory": [
+        [
+          {
+            "node": "E-Mail Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory2": {
+      "ai_memory": [
+        [
+          {
+            "node": "Calendar Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MCP Email Client": {
+      "ai_tool": [
+        [
+          {
+            "node": "E-Mail Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MCP Calendar Client": {
+      "ai_tool": [
+        [
+          {
+            "node": "Calendar Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get a Voice": {
+      "main": [
+        [
+          {
+            "node": "Transcribe a recording",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get an Image": {
+      "main": [
+        [
+          {
+            "node": "Analyze image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory3": {
+      "ai_memory": [
+        [
+          {
+            "node": "Web Search Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MCP Search Client": {
+      "ai_tool": [
+        [
+          {
+            "node": "Web Search Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calendar Agent": {
+      "ai_tool": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "E-Mail Agent": {
+      "ai_tool": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Web Search Agent": {
+      "ai_tool": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Generate audio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze image": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transcribe a recording": {
+      "main": [
+        [
+          {
+            "node": "Voice",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate audio": {
+      "main": [
+        [
+          {
+            "node": "Send an audio file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Calendar Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "E-Mail Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Web Search Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "3068f43c-8cf3-4447-b794-1116cebbcfc7",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b0b0f11fbf8033e09166beed7c38644ba63b95afbdb0daded73cab9aad49c072"
+  },
+  "id": "us8jVMIUYk0FV1Ki",
+  "tags": []
+}
