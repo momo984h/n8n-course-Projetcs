@@ -138,11 +138,12 @@ Replace the entire file content with this (update paths for your system):
 **✏️ Important:** Change `C:/Users/YourName/Documents` to your actual document folder path.
 
 Examples:
-- `C:/Users/ElShamy/OneDrive/Documents`
-- `F:/OneDrive - New Mexico State University/Documents`
-- `~/Documents` (Mac/Linux)
+- Windows: `C:/Users/YourUsername/Documents` or `C:/Users/YourUsername/OneDrive/Documents`
+- Windows (alternate): `D:/MyDocuments` or any folder with your files
+- Mac: `~/Documents` or `~/OneDrive/Documents`
+- Linux: `~/documents` or `~/onedrive/documents`
 
-Save the file.
+**Save the file.**
 
 ---
 
