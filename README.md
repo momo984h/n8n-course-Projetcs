@@ -145,9 +145,7 @@ To keep your n8n instance up-to-date with the latest features and security patch
 | **Telegram Multi-Agent MCP System** | Advanced Telegram multi-agent system with MCP (Model Context Protocol) integration supporting text, voice, and image processing. Features specialized orchestrator agent coordinating email, calendar, and web search agents with OpenAI GPT-5 integration. | [📁 Download](workflows/62-%20TelegramMultiAgent_MCP_Text_Voice_Image.json) | [🎥 Watch](https://www.youtube.com/watch?v=VIDEO_ID_PLACEHOLDER) *(Coming Soon)* |
 | **Outlook Email & Calendar Multi-Agents MCP** | Enterprise-grade Outlook integration with multi-agent system for intelligent email classification, calendar management, and automated workflow processing. Features advanced MCP (Model Context Protocol) integration for seamless AI agent coordination and Microsoft Graph API integration. | [📁 Download](workflows/Outlook_Email&Calendar-Multi-Agents_MCP.json) | [🎥 Watch](https://www.youtube.com/watch?v=VIDEO_ID_PLACEHOLDER) *(Coming Soon)* |
 
-## 🛠️ Technologies & Integrations
-
-### Advanced RAG (Retrieval Augmented Generation)
+## Advanced RAG (Retrieval Augmented Generation)
 
 A comprehensive suite of tools and services for building production-ready RAG systems with n8n.
 
@@ -155,7 +153,7 @@ A comprehensive suite of tools and services for building production-ready RAG sy
 |---------|-------------|-----------|------------------|
 | **Docling MCP** | Document conversion and processing service. Converts PDF documents into structured JSON formats with caching mechanism for improved performance. Provides tools for document conversion, processing, and generation through the Model Context Protocol (MCP) for seamless n8n integration. | [GitHub Repository](https://github.com/docling-project/docling-mcp/tree/main) • [Setup Guide for n8n](#docling-mcp-setup-guide) • [Official Docs](https://github.com/docling-project/docling-mcp) | [🎥 Complete Setup & Integration (Coming Soon)](#) |
 
-#### Docling MCP Setup Guide
+### Docling MCP Setup Guide
 
 **Complete steps to install and RUN MCP-Docling in your n8n:**
 
@@ -182,6 +180,8 @@ A comprehensive suite of tools and services for building production-ready RAG sy
 📺 **Watch the full tutorial video** for complete step-by-step instructions with code examples and configuration files!
 
 ---
+
+## 🛠️ Technologies & Integrations
 
 ### **Core Technologies**
 - **n8n** - Visual workflow automation platform
