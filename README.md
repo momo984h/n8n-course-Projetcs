@@ -218,6 +218,14 @@ A comprehensive suite of tools and services for building production-ready RAG sy
     └──────────────────┘
 ```
 
+---
+
+### 📌 Step 1: Preprocessing & Conversion Tools
+
+The diagram above shows the complete RAG pipeline. The **first critical step** is **Preprocessing & Conversion** - extracting and converting your PDF documents into structured formats that can be processed by the rest of the pipeline.
+
+The table below provides tools and services specifically designed for this preprocessing step:
+
 ### Integration Tools
 
 | Project | Description | Resources | YouTube Tutorial |
