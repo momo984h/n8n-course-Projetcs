@@ -37,8 +37,8 @@ ENV PATH="/opt/venv/bin:$PATH"
 # Upgrade pip
 RUN pip install --upgrade pip
 
-# Install docling-mcp
-RUN pip install --no-cache-dir docling-mcp
+# Add version pinning for reproducibility
+RUN pip install --no-cache-dir docling-mcp==0.1.0
 
 # Stage 2: Runtime (smaller)
 FROM python:3.11-slim-bookworm
