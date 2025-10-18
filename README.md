@@ -157,21 +157,6 @@ To keep your n8n instance up-to-date with the latest features and security patch
 
 ## 🛠️ Technologies & Integrations
 
-### **Core Technologies**
-- **n8n** - Visual workflow automation platform
-- **OpenAI GPT** - Advanced language models
-- **Grok AI** - Alternative AI model for enhanced conversations
-- **Vector Databases** - Pinecone, Weaviate for RAG systems
-- **Speech Processing** - Voice-to-text and text-to-speech
-
-### **Popular Integrations**
-- **📧 Email**: Gmail, Outlook automation
-- **📅 Calendar**: Google Calendar, Outlook Calendar
-- **💬 Chat**: Slack, Discord, Telegram, WhatsApp
-- **🗄️ Database**: PostgreSQL, MySQL, MongoDB
-- **☁️ Cloud**: AWS, Google Cloud, Azure services
-- **📊 Analytics**: Google Analytics, custom dashboards
-
 ### Advanced RAG (Retrieval Augmented Generation)
 
 A comprehensive suite of tools and services for building production-ready RAG systems with n8n.
@@ -205,6 +190,23 @@ A comprehensive suite of tools and services for building production-ready RAG sy
    - Build your first RAG pipeline
 
 📺 **Watch the full tutorial video** for complete step-by-step instructions with code examples and configuration files!
+
+---
+
+### **Core Technologies**
+- **n8n** - Visual workflow automation platform
+- **OpenAI GPT** - Advanced language models
+- **Grok AI** - Alternative AI model for enhanced conversations
+- **Vector Databases** - Pinecone, Weaviate for RAG systems
+- **Speech Processing** - Voice-to-text and text-to-speech
+
+### **Popular Integrations**
+- **📧 Email**: Gmail, Outlook automation
+- **📅 Calendar**: Google Calendar, Outlook Calendar
+- **💬 Chat**: Slack, Discord, Telegram, WhatsApp
+- **🗄️ Database**: PostgreSQL, MySQL, MongoDB
+- **☁️ Cloud**: AWS, Google Cloud, Azure services
+- **📊 Analytics**: Google Analytics, custom dashboards
 
 ## 📖 Learning Path
 
