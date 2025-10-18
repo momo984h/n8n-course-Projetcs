@@ -230,7 +230,99 @@ The table below provides tools and services specifically designed for this prepr
 
 | Project | Description | Resources | Setup Guide |
 |---------|-------------|-----------|------------|
-| **Docling MCP** | Document conversion and processing service. Converts PDF documents into structured JSON formats with caching mechanism for improved performance. Provides tools for document conversion, processing, and generation through the Model Context Protocol (MCP) for seamless n8n integration. | [GitHub Repository](https://github.com/docling-project/docling-mcp/tree/main) • [Setup Guide for n8n](#docling-mcp-setup-guide) • [Official Docs](https://github.com/docling-project/docling-mcp) | [📖 Installation Guide](#) |
+| **Docling MCP** | Document conversion and processing service. Converts PDF documents into structured JSON formats with caching mechanism for improved performance. Provides tools for document conversion, processing, and generation through the Model Context Protocol (MCP) for seamless n8n integration. | [GitHub Repository](https://github.com/docling-project/docling-mcp/tree/main) • [Setup Guide for n8n](#docling-mcp-setup-guide) • [Official Docs](https://github.com/docling-project/docling-mcp) | [📖 Installation Guide](#docling-mcp-docker-setup) |
+
+---
+
+## Docling MCP Docker Setup
+
+### Prerequisites
+- **Docker Desktop** v4.42.0+ ([Download](https://www.docker.com/products/docker-desktop))
+- **Claude Desktop** ([Download](https://claude.ai/download))
+- Terminal/Command Prompt access
+
+### Step 1: Create Project Directory
+```bash
+mkdir docling-mcp-docker
+cd docling-mcp-docker
+```
+
+### Step 2: Create Dockerfile
+Create a file named `Dockerfile` with this content:
+
+```dockerfile
+# Stage 1: Builder
+FROM python:3.11-slim-bookworm AS builder
+RUN apt-get update && apt-get install -y build-essential git && rm -rf /var/lib/apt/lists/*
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+RUN pip install --upgrade pip
+RUN pip install --no-cache-dir docling-mcp
+
+# Stage 2: Runtime
+FROM python:3.11-slim-bookworm
+RUN apt-get update && apt-get install -y libmagic1 libgomp1 libgl1-mesa-glx libglib2.0-0 && rm -rf /var/lib/apt/lists/*
+COPY --from=builder /opt/venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+RUN mkdir -p /app/cache /app/documents
+WORKDIR /app
+ENV PYTHONUNBUFFERED=1 DOCLING_CACHE_DIR=/app/cache
+ENTRYPOINT ["docling-mcp-server", "--transport", "stdio"]
+```
+
+### Step 3: Build Docker Image
+```bash
+docker build -t docling-mcp:latest .
+```
+⏱️ This takes 5-15 minutes. Ensure Docker Desktop is running.
+
+### Step 4: Verify Image
+```bash
+docker images docling-mcp
+docker run --rm docling-mcp:latest --help
+```
+Should display image info and help text.
+
+### Step 5: Configure Claude Desktop
+1. Open Claude configuration file:
+   - **Windows**: Press `Win + R` → Type: `notepad %APPDATA%\Claude\claude_desktop_config.json`
+   - **Mac**: `~/.config/Claude/claude_desktop_config.json`
+   - **Linux**: `~/.config/Claude/claude_desktop_config.json`
+
+2. Add this configuration (replace document path with yours):
+```json
+{
+  "mcpServers": {
+    "docling": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-v", "C:/Users/YourName/Documents:/documents",
+        "-v", "C:/Users/YourName/.docling-cache:/opt/venv/lib/python3.11/site-packages/_cache",
+        "docling-mcp:latest"
+      ]
+    }
+  }
+}
+```
+✏️ **Change paths** to your document folders
+
+### Step 6: Restart Claude Desktop
+1. Close Claude Desktop completely
+2. Check System Tray (bottom-right) → Right-click Claude icon → Quit
+3. Verify in Task Manager (`Ctrl + Shift + Esc`) → End any Claude processes
+4. Reopen Claude Desktop
+
+### Step 7: Test MCP Connection
+Send this message in Claude:
+```
+"What MCP tools do you have available? Can you list the Docling tools?"
+```
+
+✅ **Expected Result**: Claude lists Docling document processing tools  
+❌ **Not Working?**: Check Docker is running, Claude fully restarted, and config file saved
 
 ---
 
