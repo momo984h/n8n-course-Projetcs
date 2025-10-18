@@ -155,6 +155,12 @@ To keep your n8n instance up-to-date with the latest features and security patch
 
 || **Claude Desktop Integration** | Complete setup guide for integrating n8n with Claude Desktop using Model Context Protocol (MCP). Includes configuration steps, MCP server setup, and workflow integration instructions | [📖 Installation Guide](#claude-desktop-integration-setup) |
 
+## 🎯 Quick Links
+
+- **[OneDrive WSL Guide](/OneDrive_WSL_Guide/)** - Check OneDrive sync status and troubleshooting
+- **[n8n Docker Setup](https://www.youtube.com/watch?v=VXCC8jHN7zA)** - Complete Docker installation
+- **[n8n Academy](https://academy.n8n.io/)** - Official learning platform
+
 ## 🛠️ Technologies & Integrations
 
 ### Advanced RAG (Retrieval Augmented Generation)
