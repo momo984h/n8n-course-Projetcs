@@ -144,16 +144,6 @@ To keep your n8n instance up-to-date with the latest features and security patch
 | **Messenger Multi-Agent Text-Image-Voice** | Comprehensive Facebook Messenger multi-agent system supporting text, voice, and image processing. Advanced AI agent integration with Facebook Graph API for seamless multimedia communication. See [📄 API Command Reference](workflows/Messenger_API_Command.md) for sending audio messages via curl. | [📁 Download](workflows/55%20-%20MessengerMultiAgent_Text_Voice_Image.json) | [🎥 Watch](https://www.youtube.com/watch?v=VIDEO_ID_PLACEHOLDER) *(Coming Soon)* |
 | **Telegram Multi-Agent MCP System** | Advanced Telegram multi-agent system with MCP (Model Context Protocol) integration supporting text, voice, and image processing. Features specialized orchestrator agent coordinating email, calendar, and web search agents with OpenAI GPT-5 integration. | [📁 Download](workflows/62-%20TelegramMultiAgent_MCP_Text_Voice_Image.json) | [🎥 Watch](https://www.youtube.com/watch?v=VIDEO_ID_PLACEHOLDER) *(Coming Soon)* |
 | **Outlook Email & Calendar Multi-Agents MCP** | Enterprise-grade Outlook integration with multi-agent system for intelligent email classification, calendar management, and automated workflow processing. Features advanced MCP (Model Context Protocol) integration for seamless AI agent coordination and Microsoft Graph API integration. | [📁 Download](workflows/Outlook_Email&Calendar-Multi-Agents_MCP.json) | [🎥 Watch](https://www.youtube.com/watch?v=VIDEO_ID_PLACEHOLDER) *(Coming Soon)* |
-|| **Integrating n8n with Claude Desktop** | Advanced integration that connects your n8n workflows with Claude Desktop using Model Context Protocol (MCP). Enable Claude to directly interact with and control your n8n automation workflows through natural language commands. | [📖 Installation Guide](workflows/Claude_Desktop_Integration_Guide.md) | [🎥 Watch](https://www.youtube.com/watch?v=VIDEO_ID_PLACEHOLDER) *(Coming Soon)* |
-### 📋 **Installation Guides**
-
-| Guide | Description | Installation Guide |
-|-------|-------------|-------------------|
-| **WhatsApp Evolution API Setup** | Complete step-by-step guide to install and configure WhatsApp Evolution API for n8n integration. Includes Docker setup, database configuration, and n8n connection steps | [📖 Installation Guide](Evolution_API/README-COMPLETE-SETUP.md) |
-| **Hostinger Domain Setup** | Complete guide for configuring custom domain names with n8n on Hostinger VPS. Includes DNS configuration, SSL setup, and Docker environment updates | [📖 Setup Guide](Hostinger_Domain_Setup_Guide.md) |
-| **Evolution API with Hostinger VPS** | Complete installation guide for setting up Evolution API on Hostinger VPS with custom subdomain configuration. Includes DNS setup, SSL certificates, and API deployment | [📖 Setup Guide](workflows/Evolution_API_Hostinger_Setup.md) |
-
-|| **Claude Desktop Integration** | Complete setup guide for integrating n8n with Claude Desktop using Model Context Protocol (MCP). Includes configuration steps, MCP server setup, and workflow integration instructions | [📖 Installation Guide](#claude-desktop-integration-setup) |
 
 ## 🛠️ Technologies & Integrations
 
