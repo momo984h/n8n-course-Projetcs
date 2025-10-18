@@ -230,7 +230,7 @@ The table below provides tools and services specifically designed for this prepr
 
 | Project | Description | Resources | Setup Guide |
 |---------|-------------|-----------|------------|
-| **Docling MCP** | Document conversion and processing service. Converts PDF documents into structured JSON formats with caching mechanism for improved performance. Provides tools for document conversion, processing, and generation through the Model Context Protocol (MCP) for seamless n8n integration. | [GitHub Repository](https://github.com/docling-project/docling-mcp/tree/main) • [Setup Guide for n8n](#docling-mcp-setup-guide) • [Official Docs](https://github.com/docling-project/docling-mcp) | [📖 Installation Guide](#) |
+| **Docling MCP** | Document conversion and processing service. Converts PDF documents into structured JSON formats with caching mechanism for improved performance. Provides tools for document conversion, processing, and generation through the Model Context Protocol (MCP) for seamless n8n integration. | [GitHub Repository](https://github.com/docling-project/docling-mcp/tree/main) • [Official Docs](https://github.com/docling-project/docling-mcp) | [📖 Complete Setup Guide](DOCLING_MCP_SETUP.md) |
 
 ---
 
