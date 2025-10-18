@@ -145,6 +145,30 @@ To keep your n8n instance up-to-date with the latest features and security patch
 | **Telegram Multi-Agent MCP System** | Advanced Telegram multi-agent system with MCP (Model Context Protocol) integration supporting text, voice, and image processing. Features specialized orchestrator agent coordinating email, calendar, and web search agents with OpenAI GPT-5 integration. | [📁 Download](workflows/62-%20TelegramMultiAgent_MCP_Text_Voice_Image.json) | [🎥 Watch](https://www.youtube.com/watch?v=VIDEO_ID_PLACEHOLDER) *(Coming Soon)* |
 | **Outlook Email & Calendar Multi-Agents MCP** | Enterprise-grade Outlook integration with multi-agent system for intelligent email classification, calendar management, and automated workflow processing. Features advanced MCP (Model Context Protocol) integration for seamless AI agent coordination and Microsoft Graph API integration. | [📁 Download](workflows/Outlook_Email&Calendar-Multi-Agents_MCP.json) | [🎥 Watch](https://www.youtube.com/watch?v=VIDEO_ID_PLACEHOLDER) *(Coming Soon)* |
 
+## RAG Architecture Pipeline
+
+```mermaid
+graph LR
+    A["📄 PDF Input"] --> B["🔧 Preprocessing & Conversion<br/>(Docling MCP)"]
+    B --> C["✂️ Text Splitting"]
+    C --> D["🧠 Embedding Model<br/>(OpenAI/Hugging Face)"]
+    D --> E["🔍 Vector Database<br/>(FAISS/Pinecone)"]
+    E --> F["🎯 Vector Search"]
+    F --> G["📝 Question Answering<br/>(LangChain)"]
+    G --> H["💬 User Output"]
+    
+    style A fill:#90EE90
+    style B fill:#87CEEB
+    style C fill:#87CEEB
+    style D fill:#87CEEB
+    style E fill:#87CEEB
+    style F fill:#87CEEB
+    style G fill:#87CEEB
+    style H fill:#90EE90
+```
+
+**The table below represents Step 1: "Preprocessing & Conversion" - Tools for document processing and conversion**
+
 ## Advanced RAG (Retrieval Augmented Generation)
 
 A comprehensive suite of tools and services for building production-ready RAG systems with n8n.
