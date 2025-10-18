@@ -232,32 +232,6 @@ The table below provides tools and services specifically designed for this prepr
 |---------|-------------|-----------|------------------|
 | **Docling MCP** | Document conversion and processing service. Converts PDF documents into structured JSON formats with caching mechanism for improved performance. Provides tools for document conversion, processing, and generation through the Model Context Protocol (MCP) for seamless n8n integration. | [GitHub Repository](https://github.com/docling-project/docling-mcp/tree/main) • [Setup Guide for n8n](#docling-mcp-setup-guide) • [Official Docs](https://github.com/docling-project/docling-mcp) | [🎥 Complete Setup & Integration (Coming Soon)](#) |
 
-### Docling MCP Setup Guide
-
-**Complete steps to install and RUN MCP-Docling in your n8n:**
-
-1. **Prerequisites**
-   - n8n running (Docker or local installation)
-   - Python 3.8+ (for MCP server)
-   - pip package manager
-
-2. **Installation Steps**
-   *(Detailed video tutorial coming soon with step-by-step walkthrough)*
-   - Install Docling MCP via uvx or pip
-   - Configure MCP transport protocol (stdio, sse, or streamable-http)
-   - Add Docling MCP server to n8n configuration
-   - Test PDF document conversion
-   - Set up document caching
-   - Integrate with your n8n workflows
-
-3. **Integration with n8n**
-   - Configure MCP client in n8n
-   - Add Docling tools to your workflows
-   - Test PDF conversion nodes
-   - Build your first RAG pipeline
-
-📺 **Watch the full tutorial video** for complete step-by-step instructions with code examples and configuration files!
-
 ---
 
 ## 🛠️ Technologies & Integrations
