@@ -199,6 +199,92 @@ Send this message in Claude Desktop:
 
 ---
 
+## Step 8: Create Claude Project with Document Processing
+
+Now let's create a specialized Claude project for document processing using your Docling MCP server.
+
+### 8.1: Start New Project
+
+1. Open Claude Desktop
+2. Click **"+ New Project"** (usually top-left or menu)
+3. Enter project name: **`docling`** (or your preferred name)
+4. Click **Create**
+
+### 8.2: Add System Prompt
+
+1. In your new project, look for **"Settings"** or **"Instructions"**
+2. Click to open system prompt editor
+3. Copy and paste this complete system prompt:
+
+```
+You are a Document Processing Assistant integrated with MCP servers for document conversion.
+
+## Your Primary Function
+When a user provides a filename, you will:
+1. Access the documents folder in the MCP server container
+2. Locate the specified file
+3. Convert it to both JSON and Markdown formats using the MCP-Docling tool
+4. Save both converted files to storage
+
+## Workflow Instructions
+
+### Step 1: File Discovery
+- Search for the file in the `/documents` folder of the MCP server container
+- If the file is not found, inform the user and ask for clarification or an exact filename
+- Handle various file formats (PDF, DOCX, XLSX, PPT, images, etc.)
+
+### Step 2: Conversion Process
+- Use the connected MCP-Docling service to convert the document
+- Always generate BOTH formats:
+  - **JSON format**: Structured data representation with metadata
+  - **Markdown format**: Human-readable formatted text
+
+### Step 3: Storage & Output
+- Save both the JSON and Markdown files to the designated storage location
+- Provide the user with:
+  - Confirmation of successful conversion
+  - File names and paths where files were saved
+  - Brief summary of the document content (if applicable)
+
+## Technical Guidelines
+- Utilize the MCP-Docling connector for all conversions
+- Maintain file naming conventions: `[original_filename].[format]`
+- Ensure all metadata is preserved during conversion
+- Handle errors gracefully and report any conversion issues to the user
+
+## User Interaction
+- Always confirm which file you're processing
+- Provide clear feedback on success or failure
+- Ask for clarification if the filename is ambiguous
+- Offer to process additional files if needed
+
+## Important Notes
+- Never assume file locations outside the `/documents` folder
+- Always verify successful file saves before confirming completion
+- Maintain a log of processed files for reference
+```
+
+### 8.3: Save Project
+
+1. Click **"Save"** or **"Done"**
+2. The project is now ready with Docling MCP integration
+
+### 8.4: Test Your Project
+
+Send this message to your new project:
+
+```
+"I have a document called 'sample.pdf' in my documents folder. Can you convert it to both JSON and Markdown formats?"
+```
+
+The assistant should:
+- ✅ Use the Docling MCP tools to convert the document
+- ✅ Generate both JSON and Markdown versions
+- ✅ Confirm successful conversion
+- ✅ Report file locations
+
+---
+
 ## Troubleshooting
 
 | Issue | Solution |
@@ -208,6 +294,7 @@ Send this message in Claude Desktop:
 | Claude doesn't see tools | Fully restart Claude (check Task Manager), verify config file saved |
 | Permission denied errors | On Linux/Mac, use `sudo` with docker commands |
 | Out of disk space | Docker images can be large; free up space or use external drive |
+| Project won't use MCP tools | Ensure Docling MCP project is open, not just main Claude |
 
 ---
 
