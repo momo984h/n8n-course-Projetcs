@@ -167,50 +167,18 @@ Examples:
 
 ---
 
-## Step 7: Test MCP Connection
-
-Send this message in Claude Desktop:
-
-```
-"What MCP tools do you have available? Can you list the Docling tools?"
-```
-
-### Expected Results
-
-✅ **Success:**
-- Claude recognizes Docling MCP
-- Lists available document processing tools
-- Can describe document conversion capabilities
-
-❌ **Not Working:**
-- Claude says no MCP tools available
-- Docker not running → Start Docker Desktop
-- Config not loaded → Restart Claude completely
-- Path incorrect → Check config file paths
-
-### Alternative Test Messages
-
-```
-"Can you check what document processing tools you have?"
-"Do you have access to Docling MCP?"
-"List all available MCP servers"
-"Can you process PDF documents?"
-```
-
----
-
-## Step 8: Create Claude Project with Document Processing
+## Step 7: Create Claude Project with Document Processing
 
 Now let's create a specialized Claude project for document processing using your Docling MCP server.
 
-### 8.1: Start New Project
+### 7.1: Start New Project
 
 1. Open Claude Desktop
 2. Click **"+ New Project"** (usually top-left or menu)
 3. Enter project name: **`docling`** (or your preferred name)
 4. Click **Create**
 
-### 8.2: Add System Prompt
+### 7.2: Add System Prompt
 
 1. In your new project, look for **"Settings"** or **"Instructions"**
 2. Click to open system prompt editor
@@ -264,12 +232,12 @@ When a user provides a filename, you will:
 - Maintain a log of processed files for reference
 ```
 
-### 8.3: Save Project
+### 7.3: Save Project
 
 1. Click **"Save"** or **"Done"**
 2. The project is now ready with Docling MCP integration
 
-### 8.4: Test Your Project
+### 7.4: Test Your Project
 
 Send this message to your new project:
 
