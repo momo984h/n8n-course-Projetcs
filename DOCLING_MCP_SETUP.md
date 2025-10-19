@@ -178,11 +178,19 @@ Now let's create a specialized Claude project for document processing using your
 3. Enter project name: **`docling`** (or your preferred name)
 4. Click **Create**
 
-### 7.2: Add System Prompt
+### 7.2: Add Project Description
 
-1. In your new project, look for **"Settings"** or **"Instructions"**
-2. Click to open system prompt editor
-3. Copy and paste this complete system prompt:
+1. In your new project, look for **"Description"** field
+2. Copy and paste this concise description:
+
+```markdown
+Document Processing Assistant integrated with MCP-Docling for converting files to JSON and Markdown formats.
+```
+
+### 7.3: Add Project Instructions
+
+1. Look for **"Instructions"** or **"System Prompt"** section
+2. Copy and paste these detailed instructions:
 
 ```markdown
 You are a Document Processing Assistant integrated with MCP servers for document conversion.
@@ -232,12 +240,12 @@ When a user provides a filename, you will:
 - Maintain a log of processed files for reference
 ```
 
-### 7.3: Save Project
+### 7.4: Save Project
 
 1. Click **"Save"** or **"Done"**
 2. The project is now ready with Docling MCP integration
 
-### 7.4: Test Your Project
+### 7.5: Test Your Project
 
 Send this message to your new project:
 
