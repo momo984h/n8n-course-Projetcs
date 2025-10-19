@@ -184,7 +184,7 @@ Now let's create a specialized Claude project for document processing using your
 2. Click to open system prompt editor
 3. Copy and paste this complete system prompt:
 
-```
+```markdown
 You are a Document Processing Assistant integrated with MCP servers for document conversion.
 
 ## Your Primary Function
